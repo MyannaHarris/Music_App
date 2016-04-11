@@ -138,9 +138,9 @@ public class Music {
 	  * @post Return list of playlists
 	  * @return listPlaylists
 	  * */
-	/*public ArrayList<Playlist> getPlaylists()
+	/*public Playlist getPlaylists(int pIndex)
 	{
-		return listPlaylists;
+		return listPlaylists.get(pIndex);
 	}*/
 	
 	/** Returns song object to get song info
