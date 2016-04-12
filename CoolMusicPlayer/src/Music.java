@@ -17,7 +17,7 @@ public class Music {
 	//private MusicQueue queue;
 	//private ArrayList<Song> listSongs;
 	private DataBase db;
-	//private MusicPlayer musicPlayer;
+	private MusicPlayer musicPlayer;
 	
 	/** Constructor
 	  * @pre called
@@ -31,7 +31,49 @@ public class Music {
 		//listSongs = new ArrayList<Song>;
 		//listSongs = getAllSongs();
 		db = new DataBase();
-		//musicPlayer = new MusicPlayer();
+		musicPlayer = new MusicPlayer();
+	}
+	
+	/** Plays the current song if paused, else does nothing
+	  * @pre User hits play button
+	  * @post Plays current song if paused, else does nothing
+	  * */
+	public void playButton()
+	{
+		musicPlayer.play();
+	}
+	
+	/** Pauses current song if playing, else does nothing
+	  * @pre User hits pause button
+	  * @post Pauses current song if playing, else nothing
+	  * */
+	public void pauseButton()
+	{
+		musicPlayer.pause();
+	}
+	
+	/** Restarts currently playing song
+	  * @pre User hits restart button
+	  * @post Restarts currently playing song
+	  * */
+	public void restartButton()
+	{
+		musicPlayer.restart();
+	}
+	
+	/** Skips to next song
+	  * @pre User presses skip
+	  * @post current song skipped, next song playing if exists
+	  * */
+	public void skipTo()
+	{
+		/*if(!queue.isEmpty())
+		{
+			String songNextID = queue.pop();
+			//Find song path
+			String path = "";
+			playQueue(path);
+		}*/
 	}
 	
 	/** Plays the queue using MusicPlayer object
@@ -40,7 +82,7 @@ public class Music {
 	  * */
 	public void playQueue()
 	{
-		//musicPlayer.play();
+		musicPlayer.play();
 	}
 	
 	/** Plays playlist by adding it to the queue
@@ -116,21 +158,16 @@ public class Music {
 		//listSongs.add(songTemp);
 	}
 	
-	// May be duplicate .........................????????????????????
-	/*public void playSong(int sIndex)
+	/** Plays selected song, empties queue
+	  * @pre User presses play on song
+	  * @post Song playing, song only one in queue
+	  * @param sIndex - song index to play
+	  * */
+	public void playSong(int sIndex)
 	{
+		emptyQueue();
 		addToQueue(sIndex);
 		playQueue();
-	}*/
-	
-	/** Skips to next song (in queue or "All Music")
-	  * @pre User presses skip
-	  * @post current song skipped, next song playing
-	  * @param index - song index to skip to
-	  * */
-	public void skipTo(int index)
-	{
-		
 	}
 	
 	/** Returns list of playlists ..........????????????????
