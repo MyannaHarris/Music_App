@@ -55,6 +55,10 @@ public class MusicQueue {
 	public int getSize(){
 		return queue.size();
 	}
+	
+	public int getSongAt(int index) {
+		return queue.get(index);
+	}
 }
 
 

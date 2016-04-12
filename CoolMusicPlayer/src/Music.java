@@ -141,17 +141,18 @@ public class Music {
 	  * @post song object returned, or null if nothing there
 	  * @return listSongs.get(sIndex)
 	  * */
-	/*public Song getQueueSong(int sIndex)
+	public Song getQueueSong(int sIndex)
 	{
-	    if (sIndex < )
+	    if (sIndex < queue.getSize())
 	    {
-			return ;
+	    	int id = queue.getItemAt(sIndex);
+			return getSongInfo(id);
 		}
 		else
 		{
 			return null;
 		}
-	}*/
+	}
 	
 	/** Checks if an artist already has a description
 	  * @pre Song is being added
