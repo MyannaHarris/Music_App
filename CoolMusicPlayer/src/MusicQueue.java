@@ -48,6 +48,13 @@ public class MusicQueue {
 			queue.remove(0);
 		}	
 	}
+	
+	/**
+	 * gets size
+	 */
+	public int getSize(){
+		return queue.size();
+	}
 }
 
 

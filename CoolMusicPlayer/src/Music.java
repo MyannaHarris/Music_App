@@ -67,17 +67,17 @@ public class Music {
 	  * */
 	public void skip()
 	{
-		/*if(!queue.isEmpty())
+		if(queue.getSize() > 0)
 		{
-			String songNextID = queue.pop();
+			int songNextID = queue.pop();
 			String path = "";
-			for (int i=0;  i<listSongs.size()); i++) {
+			for (int i=0;  i<listSongs.size(); i++) {
 				if (listSongs.get(i).getID() == songNextID) {
 					path = listSongs.get(i).getPath();
 				}
 			}
 			musicPlayer.play(path);
-		}*/
+		}
 	}
 	
 	/** Plays the queue using MusicPlayer object
@@ -102,9 +102,6 @@ public class Music {
 		//for all songs in playlist: addToQueue
 		Playlist tempP = listPlaylists.get(pIndex);
 		ArrayList<Integer> tempS = tempP.getList();
-=======
-		ArrayList<Playlist tempP = listPlaylists.get(pIndex);
->>>>>>> ac8734d80be0ff01546cb5d98f0c17e8045611aa
 		emptyQueue();
 		for (int i=0; i<tempS.size(); i++) {
 			addToQueue(tempS.get(i));
@@ -351,9 +348,9 @@ public class Music {
 	{
 		if (sIndex > 0 && sIndex < listSongs.size())
 		{
+			int id = listSongs.get(sIndex).getID();
 			boolean worked = db.removeSong(id);
 			if (worked) {
-				int id = listSongs.get(sIndex).getID();
 				for (int a=0; a<listPlaylists.size(); a++) {
 					Playlist currPlaylist = listPlaylists.get(a);
 					ArrayList<Integer> list = currPlaylist.getList();
