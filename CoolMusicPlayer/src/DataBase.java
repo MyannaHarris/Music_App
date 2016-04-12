@@ -123,7 +123,7 @@ public class DataBase {
 	public String getArtistDesc(String name) {return "";}
 	public void addArtist(String n, String t) {return;}
 	public void addAlbum(String n, String t) {return;}
-	public int addSong(String song, String album, String path, String genre) {return 0;}
+	public int addSong(String song, String album, String artist, String path, String genre) {return 0;}
 	public void removePlaylist(int id) {return;}
 	public boolean addToPlaylist(int p, int s) {return false;}
 	

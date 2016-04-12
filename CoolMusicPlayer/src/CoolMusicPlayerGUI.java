@@ -87,8 +87,6 @@ public class CoolMusicPlayerGUI extends JFrame {
 	    JPanel panel3 = new JPanel();
 	    tabbedPane.addTab("Queue", panel3);
 	    
-	    //panels for sub songs in playlists
-	    subSongPanels = new ArrayList<JPanel>();
 	    
 	    //Constraints for gridbag for scroll panels
 	    GridBagConstraints gbc2 = new GridBagConstraints();
@@ -118,6 +116,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 		allScroll.setPreferredSize(new Dimension(1460,600));
 		
 		allPanels = new ArrayList<JPanel>();
+		
 		allPanels.add(createSongPanel("1"));
 		panelAll.add(allPanels.get(0),gbc2,-1);
 		allPanels.add(createSongPanel("My songs know what you did in the dark"));
@@ -149,14 +148,20 @@ public class CoolMusicPlayerGUI extends JFrame {
 		playScroll.setPreferredSize(new Dimension(1460,600));
 
 		playlistPanels = new ArrayList<JPanel>();
+		
+		//panels for sub songs in playlists
+	    subSongPanels = new ArrayList<JPanel>();
+	    
 		playlistPanels.add(createPlaylistPanel(new Playlist()));
 		panelPlaylists.add(playlistPanels.get(0),gbc2,-1);
 		subSongPanels.add(new JPanel());
 		panelPlaylists.add(subSongPanels.get(0),gbc2,-1);
 		playlistPanels.add(createPlaylistPanel(new Playlist()));
 		panelPlaylists.add(playlistPanels.get(1),gbc2,-1);
-		subSongPanels.add(new JPanel());
+		subSongPanels.add(createSubSongPanel(""));
 		panelPlaylists.add(subSongPanels.get(1),gbc2,-1);
+		subSongPanels.add(createSubSongPanel(""));
+		panelPlaylists.add(subSongPanels.get(2),gbc2,-1);
 		
 		i = 0;
 		/*Playlist tempPlaylist = getPlaylist(i);

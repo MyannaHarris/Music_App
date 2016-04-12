@@ -26,10 +26,10 @@ public class Music {
 	public Music()
 	{
 		listPlaylists = new ArrayList<Playlist>();
-		listPlaylists = getAllPlaylist();
-		queue = = new MusicQueue();
-		listSongs = new ArrayList<Song>;
-		listSongs = getAllSongs();
+		//listPlaylists = getAllPlaylist();
+		//queue = = new MusicQueue();
+		listSongs = new ArrayList<Song>();
+		//listSongs = getAllSongs();
 		db = new DataBase();
 		musicPlayer = new MusicPlayer();
 	}
@@ -67,7 +67,7 @@ public class Music {
 	  * */
 	public void skip()
 	{
-		if(!queue.isEmpty())
+		/*if(!queue.isEmpty())
 		{
 			String songNextID = queue.pop();
 			String path = "";
@@ -77,7 +77,7 @@ public class Music {
 				}
 			}
 			musicPlayer.play(path);
-		}
+		}*/
 	}
 	
 	/** Plays the queue using MusicPlayer object
@@ -99,11 +99,12 @@ public class Music {
 	  * */
 	public void playPlaylist(int pIndex)
 	{
-		for all songs in playlist: addToQueue
-		ArrayList<Playlist> tempP = listPlaylists.get(pIndex);
+		//for all songs in playlist: addToQueue
+		Playlist tempP = listPlaylists.get(pIndex);
+		ArrayList<Integer> tempS = tempP.getList();
 		emptyQueue();
-		for (int i=0; i<tempP.size(); i++) {
-			addToQueue(tempP.get(i));
+		for (int i=0; i<tempS.size(); i++) {
+			addToQueue(tempS.get(i));
 		}
 		playQueue();
 	}
@@ -127,7 +128,7 @@ public class Music {
 	}
 	
 	public Song getSongInfo (int id) {
-		for (int i=0;  i<listSongs.size()); i++) {
+		for (int i=0;  i<listSongs.size(); i++) {
 			if (listSongs.get(i).getID() == id) {
 				return listSongs.get(i);
 			}
@@ -161,7 +162,7 @@ public class Music {
 	public String checkArtistDesc(String aName)
 	{
 		String description = "";
-		return db.getAlbumDesc(String aName);
+		description = db.getAlbumDesc(aName);
 		return description;
 	}
 	
@@ -174,7 +175,7 @@ public class Music {
 	public String checkAlbumDesc(String aName)
 	{
 		String description = "";
-		return db.getArtistDesc(String aName);
+		description = db.getArtistDesc(aName);
 		return description;
 	}
 	
@@ -228,7 +229,7 @@ public class Music {
 			tempAlb = albDesc;
 		}
 		int id = db.addSong(song, artist, album, path, genre);
-		Song songTemp = new Song(id, song, artist, album, artDesc, albDesc, path, genre);
+		Song songTemp = new Song(song, album, artist, artDesc, albDesc, genre,id,path);
 		listSongs.add(songTemp);
 	}
 	
@@ -296,7 +297,7 @@ public class Music {
 	  * */
 	public boolean makePlaylist(String pName, int sIndex)
 	{
-		int songID = listSongs.get(sIndex).getID;
+		int songID = listSongs.get(sIndex).getID();
 		int id = db.addPlaylist(pName, songID);
 		Playlist playTemp = new Playlist(pName, songID, id);
 		listPlaylists.add(playTemp);
@@ -315,8 +316,8 @@ public class Music {
 	public boolean deletePlaylist(int pIndex)
 	{
 		if (playlistExists(pIndex)) {
-			db.removePlaylist(listPlaylist.get(pIndex).getID());
-			listPlaylists.remove(sIndex);
+			db.removePlaylist(listPlaylists.get(pIndex).getID());
+			listPlaylists.remove(pIndex);
 			return true;
 		}
 		return false;
@@ -331,9 +332,9 @@ public class Music {
 	  * */
 	public boolean addToPlaylist(int pIndex, int sIndex)
 	{
-		int pID = listPlaylist.get(pIndex).getID();
+		int pID = listPlaylists.get(pIndex).getID();
 		int sID = listSongs.get(sIndex).getID();
-		listPlaylist.get(pIndex).add(sID);
+		listPlaylists.get(pIndex).addSong(sID);
 		return db.addToPlaylist(pID, sID);
 	}
 	

@@ -36,7 +36,7 @@ public class Song {
 	 * @param sID ID of song
 	 * @param sPath path to the song file
 	 */
-	public Song(String sName, String sAlbum, String sArtist, 
+	public Song(String sName, String sAlbum, String sArtist,
 			String sArtDesc, String sAlDesc, String sGenre, int sID, String sPath){
 		name = sName;
 		album = sAlbum;
