@@ -72,6 +72,10 @@ public class MusicPlayer {
             clip.stop();
         }
     }
+    
+    public boolean isPlaying() {
+    	return clip.isRunning();
+    }
 
     protected void loadClip(File audioFile) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
 
