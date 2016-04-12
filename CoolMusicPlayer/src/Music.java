@@ -72,7 +72,7 @@ public class Music {
 			String songNextID = queue.pop();
 			//Find song path
 			String path = "";
-			playQueue(path);
+			musicPlayer.play(path);
 		}*/
 	}
 	
@@ -82,7 +82,10 @@ public class Music {
 	  * */
 	public void playQueue()
 	{
-		musicPlayer.play();
+		/*if(!musicPlayer.isPlaying())
+		{
+			skipTo();
+		}*/
 	}
 	
 	/** Plays playlist by adding it to the queue
