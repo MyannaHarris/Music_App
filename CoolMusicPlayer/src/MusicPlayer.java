@@ -16,65 +16,79 @@ public class MusicPlayer {
     public MusicPlayer() {
     	currFrame = 0;
     	currSong = false;
+    	clip = null;
     }
     
     public void stop() {
-    	clip.stop();
-    	currSong = false;
+    	if (clip != null) {
+    		clip.stop();
+    		currSong = false;
+    	}
     }
     
     public void restart() {
-    	if (clip.isRunning()) {
-    		clip.stop();
-    		clip.setFramePosition(0);
-    		clip.start();
-    	}
-    	else if (currSong) {
-    	    clip.setFramePosition(0);
+    	if (clip != null) {
+    		if (clip.isRunning()) {
+    			clip.stop();
+    			clip.setFramePosition(0);
+    			clip.start();
+    		}
+    		else if (currSong) {
+    			clip.setFramePosition(0);
+    		}
     	}
     }
     
     public void play() {
-    	if (currSong) {
-    		if (currFrame < clip.getFrameLength()) {
-    			clip.setFramePosition(currFrame);
-    		} else {
-    			clip.setFramePosition(0);
+    	if (clip != null) {
+    		if (currSong) {
+    			if (currFrame < clip.getFrameLength()) {
+    				clip.setFramePosition(currFrame);
+    			} else {
+    				clip.setFramePosition(0);
+    			}
+    			clip.start();
     		}
-    		clip.start();
     	}
     }
     
     public void play(String path) {
-    	if (clip.isRunning()) {
-    		clip.stop();
-    		currSong = false;
+    	if (clip != null) {
+    		if (clip.isRunning()) {
+    			clip.stop();
+    			currSong = false;
+    		}
+    		try {
+    			loadClip(new File(path));
+    			currSong = true;
+    			clip.start();
+    		} catch (LineUnavailableException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		} catch (IOException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		} catch (UnsupportedAudioFileException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
     	}
-    	try {
-			loadClip(new File(path));
-			currSong = true;
-	    	clip.start();
-		} catch (LineUnavailableException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UnsupportedAudioFileException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
     }
     
     public void pause() {
-        if (clip.isRunning()) {
-            currFrame = clip.getFramePosition();
-            clip.stop();
-        }
+    	if (clip != null) {
+    		if (clip.isRunning()) {
+    			currFrame = clip.getFramePosition();
+    			clip.stop();
+    		}
+    	}
     }
     
     public boolean isPlaying() {
-    	return clip.isRunning();
+    	if (clip != null) {
+    		return clip.isRunning();
+    	}
+    	return false;
     }
 
     protected void loadClip(File audioFile) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
