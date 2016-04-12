@@ -13,3 +13,6 @@
 /FailException.class
 /Music.class
 /MusicPlayer.class
+/MusicQueue.class
+/Playlist.class
+/Song.class
