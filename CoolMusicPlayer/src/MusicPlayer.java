@@ -11,32 +11,49 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class MusicPlayer {
 	private Clip clip;
 	private int currFrame;
+	private boolean currSong;
 
     public MusicPlayer() {
     	currFrame = 0;
+    	currSong = false;
+    }
+    
+    public void stop() {
+    	clip.stop();
+    	currSong = false;
     }
     
     public void restart() {
-    	clip.stop();
-    	clip.setFramePosition(0);
-    	clip.start();
+    	if (clip.isRunning()) {
+    		clip.stop();
+    		clip.setFramePosition(0);
+    		clip.start();
+    	}
+    	else if (currSong) {
+    	    clip.setFramePosition(0);
+    	}
     }
     
     public void play() {
-        if (currFrame < clip.getFrameLength()) {
-            clip.setFramePosition(currFrame);
-        } else {
-            clip.setFramePosition(0);
-        }
-        clip.start();
+    	if (currSong) {
+    		if (currFrame < clip.getFrameLength()) {
+    			clip.setFramePosition(currFrame);
+    		} else {
+    			clip.setFramePosition(0);
+    		}
+    		clip.start();
+    	}
     }
     
     public void play(String path) {
     	if (clip.isRunning()) {
     		clip.stop();
+    		currSong = false;
     	}
     	try {
 			loadClip(new File(path));
+			currSong = true;
+	    	clip.start();
 		} catch (LineUnavailableException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -47,8 +64,6 @@ public class MusicPlayer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	clip.start();
-    	
     }
     
     public void pause() {
