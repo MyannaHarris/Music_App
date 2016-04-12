@@ -127,7 +127,7 @@ public class DataBase {
 	public void removePlaylist(int id) {return;}
 	public boolean addToPlaylist(int p, int s) {return false;}
 	
-	
+	public boolean removeSong(int id) {return false;}
 	
 	
 	public ResultSet getApplicationInfo(int userID, int positionID) throws SQLException {
