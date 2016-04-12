@@ -99,16 +99,34 @@ public class Music {
 		playQueue();
 	}
 	
-	/** Returns the ArrayList of all song objects
-	  * @pre Song objects created from info in database
-	  * @post ArrayList of all songs returned
-	  * @return listSongs
+	/** Returns the song object
+	  * @pre Song list exists
+	  * @post song object returned, or null if not exist
+	  * @param sIndex - index of song
+	  * @return listSongs.get(sIndex)
 	  * */
-	/*public Song getSong(int sIndex) // Return list of song objects?
+	/*public Song getSong(int sIndex)
 	{
 	    if (sIndex < listSongs.size())
 	    {
 			return listSongs.get(sIndex);
+		}
+		else
+		{
+			return null;
+		}
+	}*/
+	
+	/** Returns the song object
+	  * @pre queue exists
+	  * @post song object returned, or null if nothing there
+	  * @return listSongs.get(sIndex)
+	  * */
+	/*public Song getQueueSong(int sIndex)
+	{
+	    if (sIndex < )
+	    {
+			return ;
 		}
 		else
 		{
@@ -173,10 +191,11 @@ public class Music {
 		playQueue();
 	}
 	
-	/** Returns list of playlists ..........????????????????
-	  * @pre List of playlists exists
-	  * @post Return list of playlists
-	  * @return listPlaylists
+	/** Returns the playlist object
+	  * @pre playlist list exists
+	  * @post playlist object returned, or null if not exist
+	  * @param pIndex - index of playlist
+	  * @return listPlaylists.get(pIndex)
 	  * */
 	/*public Playlist getPlaylists(int pIndex)
 	{

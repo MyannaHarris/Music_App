@@ -15,6 +15,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -87,11 +88,14 @@ public class CoolMusicPlayerGUI extends JFrame {
 		allScroll.setMinimumSize(new Dimension(860, 600));
 		allScroll.setPreferredSize(new Dimension(860,600));
 		
+		ArrayList<JPanel> allPanels = new ArrayList<JPanel>();
+		
 		int i = 0;
 		/*Song tempSong = getSong(i);
 		while(tempSong != null)
 		{
-			panelAll.add(createSongPanel(tempSong));
+			allPanels.add(createSongPanel(tempSong));
+			panelAll.add(allPanels.get(i));
 			i++;
 			tempSong = getSong(i);
 		}*/
@@ -109,11 +113,14 @@ public class CoolMusicPlayerGUI extends JFrame {
 		playScroll.setMinimumSize(new Dimension(860, 600));
 		playScroll.setPreferredSize(new Dimension(860,600));
 		
+		ArrayList<JPanel> playlistPanels = new ArrayList<JPanel>();
+		
 		i = 0;
 		/*Song tempPlaylist = getPlaylist(i);
 		while(tempPlaylist != null)
 		{
-			panelPlaylists.add(createPlaylistPanel(tempPlaylist));
+			allPanels.add(createSongPanel(tempSong));
+			panelPlaylists.add(allPanels.get(i));
 			i++;
 			tempPlaylist = getPlaylist(i);
 		}*/
@@ -130,6 +137,8 @@ public class CoolMusicPlayerGUI extends JFrame {
 		JScrollPane qScroll = new JScrollPane(panelQueue);
 		qScroll.setMinimumSize(new Dimension(860, 600));
 		qScroll.setPreferredSize(new Dimension(860,600));
+		
+		//getQueueSong
 		
 		panel3.add(qScroll);
 	    
