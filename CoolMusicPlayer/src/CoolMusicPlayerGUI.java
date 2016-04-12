@@ -648,7 +648,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 		String albDesc = "";
 		String path = "";
 		String genre = "";
-		music.addSong(song, artist, album, artDesc, albDesc, path, genre);
+		//music.addSong(song, artist, album, artDesc, albDesc, path, genre);
 	}
 	
 	/** Plays song

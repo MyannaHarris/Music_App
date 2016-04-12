@@ -27,7 +27,7 @@ public class Music {
 	{
 		listPlaylists = new ArrayList<Playlist>();
 		//listPlaylists = getAllPlaylist();
-		//queue = = new MusicQueue();
+		queue = new MusicQueue();
 		listSongs = new ArrayList<Song>();
 		//listSongs = getAllSongs();
 		db = new DBConnector();

@@ -30,11 +30,6 @@ public class DBConnector {
 	
 	private Connection conn;
 	
-	public static void main(String[] args) {		
-		 DBConnector thingy = new DBConnector();
-		 int sID = thingy.addSong("Alive & Amplified", "The Mooney Sezuki", "Alive & Amplified", "path", "Rock");
-	}
-	
 	public DBConnector() {
 		try {
 			conn = this.getConnection();
@@ -123,12 +118,12 @@ public class DBConnector {
 				maxID = rs2.getInt(1);
 			}
 			maxID++;
-			String query = " insert into Song (song_id, song_name, genre_id, song_path)" + " values(?, ?, ?, ?)";
+			String query = " insert into Song (song_id, song_name, genre_name, song_path)" + " values(?, ?, ?, ?)";
 			PreparedStatement stmt = conn.prepareStatement(query);
 			stmt.setInt(1, maxID);
 			stmt.setString(2, song);
-			stmt.setString(3, path);
-			stmt.setString(4,  genre);
+			stmt.setString(3, genre);
+			stmt.setString(4,  path);
 			stmt.execute();
 			this.addContributingArtistsDB(artist, song, maxID);
 			this.addSongLocationDB(song, album, maxID);
