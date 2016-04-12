@@ -13,9 +13,9 @@ public class Music {
 	
 	// Variables
 	
-	//private ArrayList<Playlist> listPlaylists;
-	//private MusicQueue queue;
-	//private ArrayList<Song> listSongs;
+	private ArrayList<Playlist> listPlaylists;
+	private MusicQueue queue;
+	private ArrayList<Song> listSongs;
 	private DataBase db;
 	private MusicPlayer musicPlayer;
 	
@@ -25,11 +25,11 @@ public class Music {
 	  * */
 	public Music()
 	{
-		//listPlaylists = new ArrayList<Playlist>();
-		//listPlaylists = getAllPlaylist();
-		//queue = = new MusicQueue();
-		//listSongs = new ArrayList<Song>;
-		//listSongs = getAllSongs();
+		listPlaylists = new ArrayList<Playlist>();
+		listPlaylists = getAllPlaylist();
+		queue = = new MusicQueue();
+		listSongs = new ArrayList<Song>;
+		listSongs = getAllSongs();
 		db = new DataBase();
 		musicPlayer = new MusicPlayer();
 	}
@@ -67,13 +67,17 @@ public class Music {
 	  * */
 	public void skip()
 	{
-		/*if(!queue.isEmpty())
+		if(!queue.isEmpty())
 		{
 			String songNextID = queue.pop();
-			//Find song path
 			String path = "";
+			for (int i=0;  i<listSongs.size()); i++) {
+				if (listSongs.get(i).getID() == songNextID) {
+					path = listSongs.get(i).getPath();
+				}
+			}
 			musicPlayer.play(path);
-		}*/
+		}
 	}
 	
 	/** Plays the queue using MusicPlayer object
@@ -95,12 +99,12 @@ public class Music {
 	  * */
 	public void playPlaylist(int pIndex)
 	{
-		//for all songs in playlist: addToQueue
-		/*ArrayList<Playlist> tempP = listPlaylists.get(pIndex);
+		for all songs in playlist: addToQueue
+		ArrayList<Playlist> tempP = listPlaylists.get(pIndex);
 		emptyQueue();
 		for (int i=0; i<tempP.size(); i++) {
 			addToQueue(tempP.get(i));
-		}*/
+		}
 		playQueue();
 	}
 	
@@ -110,7 +114,7 @@ public class Music {
 	  * @param sIndex - index of song
 	  * @return listSongs.get(sIndex)
 	  * */
-	/*public Song getSong(int sIndex)
+	public Song getSong(int sIndex)
 	{
 	    if (sIndex < listSongs.size())
 	    {
@@ -120,7 +124,16 @@ public class Music {
 		{
 			return null;
 		}
-	}*/
+	}
+	
+	public Song getSongInfo (int id) {
+		for (int i=0;  i<listSongs.size()); i++) {
+			if (listSongs.get(i).getID() == id) {
+				return listSongs.get(i);
+			}
+		}
+		return null;
+	}
 	
 	/** Returns the song object
 	  * @pre queue exists
@@ -148,7 +161,7 @@ public class Music {
 	public String checkArtistDesc(String aName)
 	{
 		String description = "";
-		//return db.getAlbumDesc(String aName);
+		return db.getAlbumDesc(String aName);
 		return description;
 	}
 	
@@ -161,7 +174,7 @@ public class Music {
 	public String checkAlbumDesc(String aName)
 	{
 		String description = "";
-		//return db.getArtistDesc(String aName);
+		return db.getArtistDesc(String aName);
 		return description;
 	}
 	
@@ -173,7 +186,7 @@ public class Music {
 		else {
 			tempDesc = desc;
 		}
-		//db.addArtist(name,tempDesc);
+		db.addArtist(name,tempDesc);
 	}
 	
 	public void addAlbum(String name, String desc) {
@@ -184,7 +197,7 @@ public class Music {
 		else {
 			tempDesc = desc;
 		}
-		//db.addAlbum(name,tempDesc);
+		db.addAlbum(name,tempDesc);
 	}
 	
 	/** Adds a new song to the database and "All Music"
@@ -214,9 +227,9 @@ public class Music {
 		else {
 			tempAlb = albDesc;
 		}
-		//int id = db.addSong(song, artist, album, path, genre);
-		//Song songTemp = new Song(id, song, artist, album, artDesc, albDesc, path, genre);
-		//listSongs.add(songTemp);
+		int id = db.addSong(song, artist, album, path, genre);
+		Song songTemp = new Song(id, song, artist, album, artDesc, albDesc, path, genre);
+		listSongs.add(songTemp);
 	}
 	
 	/** Plays selected song, empties queue
@@ -237,21 +250,21 @@ public class Music {
 	  * @param pIndex - index of playlist
 	  * @return listPlaylists.get(pIndex)
 	  * */
-	/*public Playlist getPlaylists(int pIndex)
+	public Playlist getPlaylists(int pIndex)
 	{
 		return listPlaylists.get(pIndex);
-	}*/
+	}
 	
 	/** Returns song object to get song info
 	  * @pre Song info asked for and song object exists
 	  * @post Return song object
 	  * @return songObj
 	  * */
-	/*public Song viewInfo(int sIndex)
+	public Song viewInfo(int sIndex)
 	{
 		Song songObj = listSongs.get(sIndex);
 		return songObj;
-	}*/
+	}
 	
 	/** Empties the queue
 	  * @pre Queue exists
@@ -270,7 +283,7 @@ public class Music {
 	  * */
 	public boolean addToQueue(int sIndex)
 	{
-		//queue.enqueue(sIndex); // ?????
+		queue.enqueue(listSongs.get(sIndex).getID());
 		return true;
 	}
 	
@@ -283,10 +296,10 @@ public class Music {
 	  * */
 	public boolean makePlaylist(String pName, int sIndex)
 	{
-		//int songID = listSongs.get(sIndex).getID;
-		//int id = db.addPlaylist(pName, songID);
-		//Playlist playTemp = new Playlist(pName, songID, id);
-		//listPlaylists.add(playTemp);
+		int songID = listSongs.get(sIndex).getID;
+		int id = db.addPlaylist(pName, songID);
+		Playlist playTemp = new Playlist(pName, songID, id);
+		listPlaylists.add(playTemp);
 		if (id==0) {
 			return false;
 		}
@@ -301,12 +314,11 @@ public class Music {
 	  * */
 	public boolean deletePlaylist(int pIndex)
 	{
-		//if (sIndex > 0 && sIndex < listPlaylists.size())
-		//{
-		//	  db.removePlaylist(listPlaylist.get(pIndex).getID());
-		//    listPlaylists.remove(sIndex);
-		//    return true;
-		//}
+		if (playlistExists(pIndex)) {
+			db.removePlaylist(listPlaylist.get(pIndex).getID());
+			listPlaylists.remove(sIndex);
+			return true;
+		}
 		return false;
 	}
 	
@@ -319,11 +331,10 @@ public class Music {
 	  * */
 	public boolean addToPlaylist(int pIndex, int sIndex)
 	{
-		//int pID = listPlaylist.get(pIndex).getID();
-		//int sID = listSongs.get(sIndex).getID();
-		//listPlaylist.get(pIndex).add(sID);
-		//return db.addToPlaylist(pID, sID);
-		return false;
+		int pID = listPlaylist.get(pIndex).getID();
+		int sID = listSongs.get(sIndex).getID();
+		listPlaylist.get(pIndex).add(sID);
+		return db.addToPlaylist(pID, sID);
 	}
 	
 	/** Delete song from app and database
@@ -350,8 +361,7 @@ public class Music {
 	  * */
 	public boolean playlistExists(int pIndex)
 	{
-		//return (pIndex>=0 && pIndex<listPlaylists.size());
-		return true;
+		return (pIndex>=0 && pIndex<listPlaylists.size());
 	}
 
 }

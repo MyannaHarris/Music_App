@@ -115,6 +115,21 @@ public class DataBase {
 		return rs2;
 	}
 	
+	public int addPlaylist(String pName, int songID) {
+		return 0;
+	}
+
+	public String getAlbumDesc(String name) {return "";}
+	public String getArtistDesc(String name) {return "";}
+	public void addArtist(String n, String t) {return;}
+	public void addAlbum(String n, String t) {return;}
+	public int addSong(String song, String album, String path, String genre) {return 0;}
+	public void removePlaylist(int id) {return;}
+	public boolean addToPlaylist(int p, int s) {return false;}
+	
+	
+	
+	
 	public ResultSet getApplicationInfo(int userID, int positionID) throws SQLException {
 		Statement s2 = conn.createStatement();
 		s2.execute("SELECT application_id, application_date, under_consideration, phone_interview, site_interview, offer, rejection FROM Application where (applicant_id='"+userID+"' and position_id='"+positionID+"')");    
