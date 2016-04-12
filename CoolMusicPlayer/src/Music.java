@@ -65,7 +65,7 @@ public class Music {
 	  * @pre User presses skip
 	  * @post current song skipped, next song playing if exists
 	  * */
-	public void skipTo()
+	public void skip()
 	{
 		/*if(!queue.isEmpty())
 		{
@@ -84,7 +84,7 @@ public class Music {
 	{
 		if(!musicPlayer.isPlaying())
 		{
-			skipTo();
+			skip();
 		}
 	}
 	
@@ -96,6 +96,11 @@ public class Music {
 	public void playPlaylist(int pIndex)
 	{
 		//for all songs in playlist: addToQueue
+		/*ArrayList<Playlist> tempP = listPlaylists.get(pIndex);
+		emptyQueue();
+		for (int i=0; i<tempP.size(); i++) {
+			addToQueue(tempP.get(i));
+		}*/
 		playQueue();
 	}
 	
@@ -160,6 +165,28 @@ public class Music {
 		return description;
 	}
 	
+	public void addArtist(String name, String desc) {
+		String tempDesc;
+		if (desc.equals("")) {
+			tempDesc = "N/A";
+		}
+		else {
+			tempDesc = desc;
+		}
+		//db.addArtist(name,tempDesc);
+	}
+	
+	public void addAlbum(String name, String desc) {
+		String tempDesc;
+		if (desc.equals("")) {
+			tempDesc = "N/A";
+		}
+		else {
+			tempDesc = desc;
+		}
+		//db.addAlbum(name,tempDesc);
+	}
+	
 	/** Adds a new song to the database and "All Music"
 	  * @pre User adds song to App
 	  * @post Song added to database and "All Music"
@@ -173,9 +200,22 @@ public class Music {
 	  * */
 	public void addSong(String song,String artist,String album,String artDesc,String albDesc,String path,String genre)
 	{
-		//db.addSong(song, artist, album, artDesc, albDesc, path, genre);
-		//Get ID?
-		//Song songTemp = new Song(song, artist, album, artDesc, albDesc, path, genre);
+		String tempArt;
+		String tempAlb;
+		if (artDesc.equals("")) {
+			tempArt = "N/A";
+		}
+		else {
+			tempArt = artDesc;
+		}
+		if (albDesc.equals("")) {
+			tempAlb = "N/A";
+		}
+		else {
+			tempAlb = albDesc;
+		}
+		//int id = db.addSong(song, artist, album, path, genre);
+		//Song songTemp = new Song(id, song, artist, album, artDesc, albDesc, path, genre);
 		//listSongs.add(songTemp);
 	}
 	
@@ -243,10 +283,13 @@ public class Music {
 	  * */
 	public boolean makePlaylist(String pName, int sIndex)
 	{
-		//db.addPlaylist(aName, sIndex)
-		//Get ID?
-		//Playlist playTemp = new Playlist(aName, sIndex);
+		//int songID = listSongs.get(sIndex).getID;
+		//int id = db.addPlaylist(pName, songID);
+		//Playlist playTemp = new Playlist(pName, songID, id);
 		//listPlaylists.add(playTemp);
+		if (id==0) {
+			return false;
+		}
 		return true;
 	}
 	
@@ -260,6 +303,7 @@ public class Music {
 	{
 		//if (sIndex > 0 && sIndex < listPlaylists.size())
 		//{
+		//	  db.removePlaylist(listPlaylist.get(pIndex).getID());
 		//    listPlaylists.remove(sIndex);
 		//    return true;
 		//}
@@ -275,15 +319,10 @@ public class Music {
 	  * */
 	public boolean addToPlaylist(int pIndex, int sIndex)
 	{
-		//if (!playlistExists(pIndex))
-		//{
-		//    db.addPlaylist(String name, ArrayList<Songs>)
-		//    return true;
-		//}
-		//else
-		//{
-		//    listPlaylists.get(pIndex).addSong(sIndex); //sID ????
-		//}
+		//int pID = listPlaylist.get(pIndex).getID();
+		//int sID = listSongs.get(sIndex).getID();
+		//listPlaylist.get(pIndex).add(sID);
+		//return db.addToPlaylist(pID, sID);
 		return false;
 	}
 	
@@ -311,6 +350,7 @@ public class Music {
 	  * */
 	public boolean playlistExists(int pIndex)
 	{
+		//return (pIndex>=0 && pIndex<listPlaylists.size());
 		return true;
 	}
 
