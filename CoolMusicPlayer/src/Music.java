@@ -82,10 +82,10 @@ public class Music {
 	  * */
 	public void playQueue()
 	{
-		/*if(!musicPlayer.isPlaying())
+		if(!musicPlayer.isPlaying())
 		{
 			skipTo();
-		}*/
+		}
 	}
 	
 	/** Plays playlist by adding it to the queue
