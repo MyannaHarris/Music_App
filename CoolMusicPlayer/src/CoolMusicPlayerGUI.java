@@ -52,6 +52,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 	
 	//list of panels for songs in playlists
 	ArrayList<JPanel> subSongPanels;
+	ArrayList<JPanel> currPlaylistSongPanels;
 	
 	/** Constructor
 	  * @pre called
@@ -96,6 +97,14 @@ public class CoolMusicPlayerGUI extends JFrame {
         gbc2.fill = GridBagConstraints.HORIZONTAL;
         gbc2.insets = new Insets(3,3,3,3);
         
+        //Constraints for gridbag for sub songs on playlists
+	    GridBagConstraints gbcSub = new GridBagConstraints();
+	    gbcSub.anchor = GridBagConstraints.NORTHWEST;
+	    gbcSub.gridwidth = GridBagConstraints.REMAINDER;
+	    //gbcSub.weightx = .5;
+	    //gbcSub.weighty = .5;
+	    gbcSub.fill = GridBagConstraints.HORIZONTAL;
+        
         //Constraints for gridbag for blank panels
 	    GridBagConstraints gbc3 = new GridBagConstraints();
 	    gbc3.anchor = GridBagConstraints.NORTHWEST;
@@ -117,9 +126,9 @@ public class CoolMusicPlayerGUI extends JFrame {
 		
 		allPanels = new ArrayList<JPanel>();
 		
-		allPanels.add(createSongPanel("1"));
+		allPanels.add(createSongPanel(new Song()));
 		panelAll.add(allPanels.get(0),gbc2,-1);
-		allPanels.add(createSongPanel("My songs know what you did in the dark"));
+		allPanels.add(createSongPanel(new Song()));
 		panelAll.add(allPanels.get(1),gbc2,-1);
 		
 		int i = 0;
@@ -151,17 +160,24 @@ public class CoolMusicPlayerGUI extends JFrame {
 		
 		//panels for sub songs in playlists
 	    subSongPanels = new ArrayList<JPanel>();
+	    currPlaylistSongPanels = new ArrayList<JPanel>();
 	    
 		playlistPanels.add(createPlaylistPanel(new Playlist()));
 		panelPlaylists.add(playlistPanels.get(0),gbc2,-1);
-		subSongPanels.add(new JPanel());
+		subSongPanels.add(new JPanel(new GridBagLayout()));
 		panelPlaylists.add(subSongPanels.get(0),gbc2,-1);
+		
 		playlistPanels.add(createPlaylistPanel(new Playlist()));
 		panelPlaylists.add(playlistPanels.get(1),gbc2,-1);
-		subSongPanels.add(createSubSongPanel(""));
+		subSongPanels.add(new JPanel(new GridBagLayout()));
+		
+		currPlaylistSongPanels.add(createSubSongPanel(""));
+		subSongPanels.get(1).add(currPlaylistSongPanels.get(0),gbcSub,-1);
+		
+		currPlaylistSongPanels.add(createSubSongPanel(""));
+		subSongPanels.get(1).add(currPlaylistSongPanels.get(1),gbcSub,-1);
+		
 		panelPlaylists.add(subSongPanels.get(1),gbc2,-1);
-		subSongPanels.add(createSubSongPanel(""));
-		panelPlaylists.add(subSongPanels.get(2),gbc2,-1);
 		
 		i = 0;
 		/*Playlist tempPlaylist = getPlaylist(i);
@@ -194,14 +210,14 @@ public class CoolMusicPlayerGUI extends JFrame {
 		queuePanels = new ArrayList<JPanel>();
 		
 		i = 0;
-		/*Song tempQ = getQueueSong(i);
-		while(tempPlaylist != null)
+		Song tempQ = music.getQueueSong(i);
+		while(tempQ != null)
 		{
 			queuePanels.add(createSongPanel(tempQ));
 			panelQueue.add(queuePanels.get(i),gbc2,-1);
 			i++;
-			tempQ = getQueueSong(i);
-		}*/
+			tempQ = music.getQueueSong(i);
+		}
 		
 		panelQueue.add(new JPanel(),gbc3,-1);
 		
@@ -342,10 +358,10 @@ public class CoolMusicPlayerGUI extends JFrame {
 	  * @param - Song info
 	  * @return songPanel
 	  * */
-	private JPanel createSongPanel(String s)
+	private JPanel createSongPanel(Song s)
 	{
 		JPanel songPanel = new JPanel();
-		songPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+		songPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
 		
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.anchor = GridBagConstraints.NORTHWEST;
@@ -361,14 +377,14 @@ public class CoolMusicPlayerGUI extends JFrame {
 		genrePanel.setPreferredSize(new Dimension(270,50));
 		
 		JButton playButtonP = new JButton(">");
-		JLabel nameL = new JLabel("song " + s);
+		JLabel nameL = new JLabel(s.getName());
 		namePanel.add(nameL,gbc);
 		JButton addButtonP = new JButton("+");
-		JLabel artistL = new JLabel("atrist");
+		JLabel artistL = new JLabel(s.getArtist());
 		artistPanel.add(artistL,gbc);
-		JLabel albumL = new JLabel("album");
+		JLabel albumL = new JLabel(s.getAlbum());
 		albumPanel.add(albumL,gbc);
-		JLabel genreL = new JLabel("genre");
+		JLabel genreL = new JLabel(s.getGenre());
 		genrePanel.add(genreL,gbc);
 		JButton infoButtonP = new JButton("i");
 		JButton deleteButtonP = new JButton("Delete");
@@ -453,7 +469,8 @@ public class CoolMusicPlayerGUI extends JFrame {
 	private JPanel createSubSongPanel(String s)
 	{
 		JPanel songPanel = new JPanel();
-		songPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+		songPanel.setPreferredSize(new Dimension(1300,60));
+		songPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
 		
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.anchor = GridBagConstraints.NORTHWEST;

@@ -14,7 +14,7 @@ public class DBConnector {
 	private final String userName = "jblack2";
 
 	/** The password for the MySQL account (or empty for anonymous) */
-	private final String password = "jblack288947341";
+	private final String password = "jblack88947341";
 
 	/** The name of the computer running MySQL */
 	private final String serverName = "ada.gonzaga.edu";

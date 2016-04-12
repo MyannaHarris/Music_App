@@ -16,7 +16,7 @@ public class Music {
 	private ArrayList<Playlist> listPlaylists;
 	private MusicQueue queue;
 	private ArrayList<Song> listSongs;
-	private DataBase db;
+	private DBConnector db;
 	private MusicPlayer musicPlayer;
 	
 	/** Constructor
@@ -30,7 +30,7 @@ public class Music {
 		//queue = = new MusicQueue();
 		listSongs = new ArrayList<Song>();
 		//listSongs = getAllSongs();
-		db = new DataBase();
+		db = new DBConnector();
 		musicPlayer = new MusicPlayer();
 	}
 	
@@ -145,7 +145,7 @@ public class Music {
 	{
 	    if (sIndex < queue.getSize())
 	    {
-	    	int id = queue.getItemAt(sIndex);
+	    	int id = queue.getSongAt(sIndex);
 			return getSongInfo(id);
 		}
 		else
@@ -350,7 +350,7 @@ public class Music {
 		if (sIndex > 0 && sIndex < listSongs.size())
 		{
 			int id = listSongs.get(sIndex).getID();
-			boolean worked = db.removeSong(id);
+			boolean worked = db.removeSongs(id);
 			if (worked) {
 				for (int a=0; a<listPlaylists.size(); a++) {
 					Playlist currPlaylist = listPlaylists.get(a);
