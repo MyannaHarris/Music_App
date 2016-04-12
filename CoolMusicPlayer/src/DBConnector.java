@@ -273,7 +273,7 @@ public class DBConnector {
 		
 	}
 	
-	public void removeSongs(int sID) {
-		
+	public boolean removeSongs(int sID) {
+		return false;
 	}
 }
