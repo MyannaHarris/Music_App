@@ -51,6 +51,10 @@ public class Playlist {
 			}
 		}
 	}
+
+	public void removeAt(int sIndex){
+		numbers.remove(sIndex);
+	}
 	
 	/**
 	 * removes all songs from the playlist
@@ -91,5 +95,9 @@ public class Playlist {
 	 */
 	public String getName(){
 		return name;
+	}
+	
+	public int getSize() {
+		return numbers.size();
 	}
 }

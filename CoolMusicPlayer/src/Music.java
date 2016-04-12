@@ -102,6 +102,9 @@ public class Music {
 		//for all songs in playlist: addToQueue
 		Playlist tempP = listPlaylists.get(pIndex);
 		ArrayList<Integer> tempS = tempP.getList();
+=======
+		ArrayList<Playlist tempP = listPlaylists.get(pIndex);
+>>>>>>> ac8734d80be0ff01546cb5d98f0c17e8045611aa
 		emptyQueue();
 		for (int i=0; i<tempS.size(); i++) {
 			addToQueue(tempS.get(i));
@@ -346,11 +349,27 @@ public class Music {
 	  * */
 	public boolean deleteSong(int sIndex)
 	{
-		//if (sIndex > 0 && sIndex < listSongs.size())
-		//{
-		//    listSongs.remove(sIndex);
-		//    return true;
-		//}
+		if (sIndex > 0 && sIndex < listSongs.size())
+		{
+			boolean worked = db.removeSong(id);
+			if (worked) {
+				int id = listSongs.get(sIndex).getID();
+				for (int a=0; a<listPlaylists.size(); a++) {
+					Playlist currPlaylist = listPlaylists.get(a);
+					ArrayList<Integer> list = currPlaylist.getList();
+					int s = currPlaylist.getSize();
+					for (int b=0; b<s; b++) {
+						if (list.get(b)==id) {
+							currPlaylist.removeAt(b);
+							b--;
+							s--;
+						}
+					}
+				}
+				listSongs.remove(sIndex);
+			}
+		    return worked;
+		}
 		return false;
 	}
 	
