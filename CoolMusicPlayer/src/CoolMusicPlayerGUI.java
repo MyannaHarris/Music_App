@@ -546,7 +546,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 		    		}
 		    	}
 		    	
-		    	//removeSongFromQueue(i);
+		    	music.removeSongFromQueue(i);
 		    }  
 		});
 		
@@ -921,7 +921,15 @@ public class CoolMusicPlayerGUI extends JFrame {
 	  * */
 	private void viewSongInfo(Song s)
 	{
-		//Song songCurr = viewInfo(sIndex);
+		String infoS = "";
+		infoS = "Song: " + s.getName() + "\n";
+		infoS += "Artist: " + s.getArtist() + "\n";
+		infoS += "Description: " + s.getArtDesc() + "\n";
+		infoS += "Album: " + s.getAlbum() + "\n";
+		infoS += "Description: " + s.getAlDesc() + "\n";
+		infoS += "Genre: " + s.getGenre() + "\n";
+		infoS += "Path: " + s.getPath();
+		JOptionPane.showMessageDialog(pane, infoS);
 	}
 	
 	/** Creates add "+" menu

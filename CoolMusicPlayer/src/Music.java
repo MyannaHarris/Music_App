@@ -61,6 +61,15 @@ public class Music {
 		musicPlayer.restart();
 	}
 	
+	/** Remove song from queue
+	  * @pre User hits delete
+	  * @post Song deleted from queue
+	  * */
+	public void removeSongFromQueue(int sIndex)
+	{
+		queue.removeSong(sIndex);
+	}
+	
 	/** Skips to next song
 	  * @pre User presses skip
 	  * @post current song skipped, next song playing if exists
