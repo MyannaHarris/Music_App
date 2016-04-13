@@ -295,9 +295,9 @@ public class Music {
 	  * @param sIndex - song index
 	  * @return boolean - true if worked, false otherwise
 	  * */
-	public boolean addToQueue(int sIndex)
+	public boolean addToQueue(int sID)
 	{
-		queue.enqueue(listSongs.get(sIndex).getID());
+		queue.enqueue(sID);
 		return true;
 	}
 	
@@ -308,9 +308,9 @@ public class Music {
 	  * @param sIndex - song index
 	  * @return boolean - true if worked, false otherwise
 	  * */
-	public boolean makePlaylist(String pName, int sIndex)
+	public boolean makePlaylist(String pName, int sID)
 	{
-		int songID = listSongs.get(sIndex).getID();
+		int songID = sID;
 		int id = db.addPlaylist(pName, songID);
 		Playlist playTemp = new Playlist(pName, songID, id);
 		listPlaylists.add(playTemp);

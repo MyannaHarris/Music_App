@@ -30,9 +30,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 
 public class CoolMusicPlayerGUI extends JFrame {
@@ -55,6 +58,12 @@ public class CoolMusicPlayerGUI extends JFrame {
 	ArrayList<JPanel> currPlaylistSongPanels;
 	//gridbagconstraints for the subsong panels
 	GridBagConstraints gbcSub;
+	
+	//Text boxes for adding a song
+	JTextField artistField;
+	JTextField artDescField;
+	JTextField albumField;
+	JTextField alDescField;
 	
 	/** Constructor
 	  * @pre called
@@ -122,6 +131,16 @@ public class CoolMusicPlayerGUI extends JFrame {
 		allScroll.setPreferredSize(new Dimension(1460,600));
 		
 		allPanels = new ArrayList<JPanel>();
+		
+		JButton addButtonP = new JButton("Add");
+		panelAll.add(addButtonP,gbc2,-1);
+		addButtonP.addMouseListener(new MouseAdapter()
+		{  
+		    public void mouseClicked(MouseEvent e)  
+		    {
+		    	plusSongPopup(new Song("name","art","al","Desc1","Desc2","Genre",1,"Path"));
+		    }  
+		});
 		
 		/*allPanels.add(createSongPanel(new Song()));
 		panelAll.add(allPanels.get(0),gbc2,-1);
@@ -872,15 +891,204 @@ public class CoolMusicPlayerGUI extends JFrame {
 	  * */
 	private void addSongPage()
 	{
-		//sdjbclnsldk  ??????????????????????????????????????????????????????????????????????
-		String song = "Test";
-		String artist = "Test";
-		String album = "Test";
-		String artDesc = "Test";
-		String albDesc = "Test";
-		String path = "Test";
-		String genre = "Test";
-		music.addSong(song, artist, album, artDesc, albDesc, path, genre);
+		JTextField nameField = new JTextField(20);
+		artistField = new JTextField(20);
+		artDescField = new JTextField(20);
+		albumField = new JTextField(20);
+		alDescField = new JTextField(20);
+		JTextField genreField = new JTextField(20);
+		JTextField pathField = new JTextField(20);
+		
+		GridBagConstraints gbcPopup = new GridBagConstraints();
+		gbcPopup.gridwidth = GridBagConstraints.REMAINDER;
+		gbcPopup.weightx = 1;
+		gbcPopup.fill = GridBagConstraints.HORIZONTAL;
+		gbcPopup.insets = new Insets(3,3,3,3);
+		
+		JPanel myPanel = new JPanel(new GridBagLayout());
+		gbcPopup.gridx = 0;
+		gbcPopup.gridy = 0;
+		gbcPopup.gridwidth = 1;
+		myPanel.add(new JLabel("Name:"),gbcPopup);
+		gbcPopup.gridx = 1;
+		gbcPopup.gridy = 0;
+		gbcPopup.gridwidth = 1;
+		myPanel.add(nameField,gbcPopup);
+		
+		gbcPopup.gridx = 0;
+		gbcPopup.gridy = 1;
+		gbcPopup.gridwidth = 1;
+		myPanel.add(new JLabel("Artist:"),gbcPopup);
+		gbcPopup.gridx = 1;
+		gbcPopup.gridy = 1;
+		gbcPopup.gridwidth = 1;
+		myPanel.add(artistField,gbcPopup);
+		
+		gbcPopup.gridx = 0;
+		gbcPopup.gridy = 2;
+		gbcPopup.gridwidth = 1;
+		myPanel.add(new JLabel("Description:"),gbcPopup);
+		gbcPopup.gridx = 1;
+		gbcPopup.gridy = 2;
+		gbcPopup.gridwidth = 1;
+		myPanel.add(artDescField,gbcPopup);
+		
+		gbcPopup.gridx = 0;
+		gbcPopup.gridy = 3;
+		gbcPopup.gridwidth = 1;
+		myPanel.add(new JLabel("Album:"),gbcPopup);
+		gbcPopup.gridx = 1;
+		gbcPopup.gridy = 3;
+		gbcPopup.gridwidth = 1;
+		myPanel.add(albumField,gbcPopup);
+		
+		gbcPopup.gridx = 0;
+		gbcPopup.gridy = 4;
+		gbcPopup.gridwidth = 1;
+		myPanel.add(new JLabel("Description:"),gbcPopup);
+		gbcPopup.gridx = 1;
+		gbcPopup.gridy = 4;
+		gbcPopup.gridwidth = 1;
+		myPanel.add(alDescField,gbcPopup);
+		
+		gbcPopup.gridx = 0;
+		gbcPopup.gridy = 5;
+		gbcPopup.gridwidth = 1;
+		myPanel.add(new JLabel("Genre:"),gbcPopup);
+		gbcPopup.gridx = 1;
+		gbcPopup.gridy = 5;
+		gbcPopup.gridwidth = 1;
+		myPanel.add(genreField,gbcPopup);
+		
+		gbcPopup.gridx = 0;
+		gbcPopup.gridy = 6;
+		gbcPopup.gridwidth = 1;
+		myPanel.add(new JLabel("Path:"),gbcPopup);
+		gbcPopup.gridx = 1;
+		gbcPopup.gridy = 6;
+		gbcPopup.gridwidth = 1;
+		myPanel.add(pathField,gbcPopup);
+		
+		String song = "";
+		String artist = "";
+		String album = "";
+		String artDesc = "";
+		String albDesc = "";
+		String path = "";
+		String genre = "";
+		
+		artistField.getDocument().addDocumentListener(new DocumentListener() {
+
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				//String desc = artistField.getText();
+				String desc = getArtistDesc(artistField.getText());
+		    	if(desc != "")
+				{
+		    		artDescField.setText(desc);
+		    		artDescField.setEditable(false);
+				}  
+		    	else
+		    	{
+		    		artDescField.setEditable(true);
+		    	}
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				//String desc = artistField.getText();
+				String desc = getArtistDesc(artistField.getText());
+		    	if(desc != "")
+				{
+		    		artDescField.setText(desc);
+		    		artDescField.setEditable(false);
+				}  
+		    	else
+		    	{
+		    		artDescField.setEditable(true);
+		    	}
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				//String desc = artistField.getText();
+				String desc = getArtistDesc(artistField.getText());
+		    	if(desc != "")
+				{
+		    		artDescField.setText(desc);
+		    		artDescField.setEditable(false);
+				}  
+		    	else
+		    	{
+		    		artDescField.setEditable(true);
+		    	}
+			}
+		});
+		
+		albumField.getDocument().addDocumentListener(new DocumentListener() {
+
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				String desc = getArtistDesc(albumField.getText());
+		    	if(desc != "")
+				{
+		    		alDescField.setText(desc);
+		    		alDescField.setEditable(false);
+				}  
+		    	else
+		    	{
+		    		alDescField.setEditable(true);
+		    	}
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				String desc = getArtistDesc(albumField.getText());
+		    	if(desc != "")
+				{
+		    		alDescField.setText(desc);
+		    		alDescField.setEditable(false);
+				}  
+		    	else
+		    	{
+		    		alDescField.setEditable(true);
+		    	}
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				String desc = getArtistDesc(albumField.getText());
+		    	if(desc != "")
+				{
+		    		alDescField.setText(desc);
+		    		alDescField.setEditable(false);
+				}  
+		    	else
+		    	{
+		    		alDescField.setEditable(true);
+		    	}
+			}
+		});
+		
+		int result = JOptionPane.showConfirmDialog(null, myPanel,
+				"Please Enter Song Info", JOptionPane.OK_CANCEL_OPTION,
+				JOptionPane.PLAIN_MESSAGE);
+		if (result == JOptionPane.OK_OPTION) {
+			song = nameField.getText();
+			artist = artistField.getText();
+			album = albumField.getText();
+			artDesc = artDescField.getText();
+			albDesc = alDescField.getText();
+			path = pathField.getText();
+			genre = genreField.getText();
+			music.addSong(song, artist, album, artDesc, albDesc, path, genre);
+		}
 	}
 	
 	/** Plays song
@@ -942,7 +1150,83 @@ public class CoolMusicPlayerGUI extends JFrame {
 	  * */
 	private void plusSongPopup(Song s)
 	{
-		//Song songCurr = viewInfo(sIndex); ??????????????????????????????????????????
+		GridBagConstraints gbcPopup = new GridBagConstraints();
+		gbcPopup.gridwidth = GridBagConstraints.REMAINDER;
+		gbcPopup.weightx = 1;
+		gbcPopup.fill = GridBagConstraints.HORIZONTAL;
+		gbcPopup.insets = new Insets(3,3,3,3);
+		
+		JPanel myPanel = new JPanel(new GridBagLayout());
+		JButton queueButton = new JButton("Add to Queue");
+		JButton newPlaylistButton = new JButton("Add to New Playlist");
+		JButton playlistButton = new JButton("Add to Playlist");
+		
+		gbcPopup.gridx = 0;
+		gbcPopup.gridy = 0;
+		gbcPopup.gridwidth = 1;
+		myPanel.add(queueButton,gbcPopup);
+		
+		gbcPopup.gridx = 0;
+		gbcPopup.gridy = 1;
+		gbcPopup.gridwidth = 1;
+		myPanel.add(newPlaylistButton,gbcPopup);
+		
+		gbcPopup.gridx = 0;
+		gbcPopup.gridy = 2;
+		gbcPopup.gridwidth = 1;
+		myPanel.add(playlistButton,gbcPopup);
+		
+		queueButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				SwingUtilities.invokeLater(new Runnable() {
+					public void run() {
+						//music.addToQueue(s.getID());
+					}
+				});
+			}
+        });
+		
+		newPlaylistButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				SwingUtilities.invokeLater(new Runnable() {
+					public void run() {
+						String name = JOptionPane.showInputDialog(
+						        null, 
+						        "What is the new playlist name?", 
+						        "Playlist name", 
+						        JOptionPane.QUESTION_MESSAGE);
+						//music.makePlaylist(name,s.getID());
+					}
+				});
+			}
+        });
+		
+		playlistButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				SwingUtilities.invokeLater(new Runnable() {
+					public void run() {
+						//Object[] options = music;
+						/*String s = (String)JOptionPane.showInputDialog(
+								            null,
+						                    "Choose the type of Todo to add",
+						                    "Todo Type",
+						                    JOptionPane.PLAIN_MESSAGE,
+						                    null,
+						                    options,
+						                    "Task");*/
+					}
+				});
+			}
+        });
+		
+		Object[] options = {"Cancel"};
+	    int n = JOptionPane.showOptionDialog(pane, myPanel,
+	                   "Add Menu",
+	                   JOptionPane.PLAIN_MESSAGE,
+	                   JOptionPane.PLAIN_MESSAGE,
+	                   null,
+	                   options,
+	                   options[0]);
 	}
 	
 	/** Success pop-up dialog so user knows when things work
