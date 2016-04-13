@@ -744,7 +744,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 		    		}
 		    	}
 		    	
-		    	//viewSongInfo(music.getSongFromPlaylist(p,i));
+		    	viewSongInfo(music.viewSongInPlaylist(p,i));
 		    }  
 		});
 	    
@@ -774,7 +774,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 		    		}
 		    	}
 		    	
-		    	//music.deleteFromPlaylist(p,i);
+		    	music.deleteFromPlaylist(p,i);
 		    }  
 		});
 		
@@ -1058,7 +1058,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				// TODO Auto-generated method stub
-				String desc = getArtistDesc(albumField.getText());
+				String desc = getAlbumDesc(albumField.getText());
 		    	if(desc != "")
 				{
 		    		alDescField.setText(desc);
@@ -1073,7 +1073,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				// TODO Auto-generated method stub
-				String desc = getArtistDesc(albumField.getText());
+				String desc = getAlbumDesc(albumField.getText());
 		    	if(desc != "")
 				{
 		    		alDescField.setText(desc);
@@ -1088,7 +1088,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 			@Override
 			public void changedUpdate(DocumentEvent e) {
 				// TODO Auto-generated method stub
-				String desc = getArtistDesc(albumField.getText());
+				String desc = getAlbumDesc(albumField.getText());
 		    	if(desc != "")
 				{
 		    		alDescField.setText(desc);
