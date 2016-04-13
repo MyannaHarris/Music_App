@@ -269,6 +269,14 @@ public class Music {
 		return listPlaylists.get(pIndex);
 	}
 	
+	public Arraylist<String> getPlaylistNames() {
+		ArrayList<String> pNames = new ArrayList<String>();
+		for (int i=0; i<listPlaylists.size(); i++) {
+			pNames.add(listPlaylists.get(i).getName());
+		}
+		return pNames;
+	}
+	
 	/** Returns song object to get song info
 	  * @pre Song info asked for and song object exists
 	  * @post Return song object
