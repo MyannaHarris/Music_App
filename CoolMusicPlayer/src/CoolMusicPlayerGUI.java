@@ -1236,10 +1236,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				SwingUtilities.invokeLater(new Runnable() {
 					public void run() {
-						ArrayList<String> optionsList = new ArrayList<String>();
-						optionsList.add("1");
-						optionsList.add("2");
-						//ArrayList<String> optionsList = music.getPlaylistNames().toArray();
+						ArrayList<String> optionsList = music.getPlaylistNames();
 						Object[] options = optionsList.toArray();
 						String s = (String)JOptionPane.showInputDialog(
 								            null,

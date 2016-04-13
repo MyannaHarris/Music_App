@@ -7,6 +7,7 @@
  * Interface between GUI and rest of classes
  */
 
+import java.sql.ResultSet;
 import java.util.*;
 
 public class Music {
@@ -34,12 +35,12 @@ public class Music {
 		musicPlayer = new MusicPlayer();
 	}
 	
-	public ResultSet getAllPlaylist() {
+	public ArrayList<Playlist> getAllPlaylist() {
 		ResultSet result = db.getAllPlaylist();
 		return new ArrayList<Playlist>();
 	}
 	
-	public ResultSet getAllSongs() {
+	public ArrayList<Song> getAllSongs() {
 		ResultSet result = db.getAllSongs();
 		return new ArrayList<Song>();
 	}
@@ -279,7 +280,7 @@ public class Music {
 		return listPlaylists.get(pIndex);
 	}
 	
-	public Arraylist<String> getPlaylistNames() {
+	public ArrayList<String> getPlaylistNames() {
 		ArrayList<String> pNames = new ArrayList<String>();
 		for (int i=0; i<listPlaylists.size(); i++) {
 			pNames.add(listPlaylists.get(i).getName());
