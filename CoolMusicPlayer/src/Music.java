@@ -252,7 +252,7 @@ public class Music {
 	  * @param pIndex - index of playlist
 	  * @return listPlaylists.get(pIndex)
 	  * */
-	public Playlist getPlaylists(int pIndex)
+	public Playlist getPlaylist(int pIndex)
 	{
 		return listPlaylists.get(pIndex);
 	}

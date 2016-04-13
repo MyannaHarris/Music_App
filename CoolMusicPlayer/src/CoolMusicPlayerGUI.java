@@ -115,31 +115,26 @@ public class CoolMusicPlayerGUI extends JFrame {
 	    
 	    //All Music
 	    JPanel panelAll = new JPanel(new GridBagLayout());
-	    /*DefaultListModel allItems = new DefaultListModel();
-		JList allList = new JList(allItems);
-		allList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		allList.setLayoutOrientation(JList.VERTICAL);
-		JScrollPane allScroll = new JScrollPane(allList);*/
 	    JScrollPane allScroll = new JScrollPane(panelAll);
 		allScroll.setMinimumSize(new Dimension(1460, 600));
 		allScroll.setPreferredSize(new Dimension(1460,600));
 		
 		allPanels = new ArrayList<JPanel>();
 		
-		allPanels.add(createSongPanel(new Song()));
+		/*allPanels.add(createSongPanel(new Song()));
 		panelAll.add(allPanels.get(0),gbc2,-1);
 		allPanels.add(createSongPanel(new Song()));
-		panelAll.add(allPanels.get(1),gbc2,-1);
+		panelAll.add(allPanels.get(1),gbc2,-1);*/
 		
 		int i = 0;
-		/*Song tempSong = getSong(i);
+		Song tempSong = music.getSong(i);
 		while(tempSong != null)
 		{
 			allPanels.add(createSongPanel(tempSong));
 			panelAll.add(allPanels.get(i),gbc2, -1);
 			i++;
-			tempSong = getSong(i);
-		}*/
+			tempSong = music.getSong(i);
+		}
 		
 		panelAll.add(new JPanel(),gbc3,-1);
 		
@@ -147,11 +142,6 @@ public class CoolMusicPlayerGUI extends JFrame {
 	    
 	    //Playlists
 		JPanel panelPlaylists = new JPanel(new GridBagLayout());
-		/*DefaultListModel playItems = new DefaultListModel();
-		JList playList = new JList(playItems);
-		playList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		playList.setLayoutOrientation(JList.VERTICAL);
-		JScrollPane playScroll = new JScrollPane(playList);*/
 		JScrollPane playScroll = new JScrollPane(panelPlaylists);
 		playScroll.setMinimumSize(new Dimension(1460, 600));
 		playScroll.setPreferredSize(new Dimension(1460,600));
@@ -162,7 +152,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 	    subSongPanels = new ArrayList<JPanel>();
 	    currPlaylistSongPanels = new ArrayList<JPanel>();
 	    
-		playlistPanels.add(createPlaylistPanel(new Playlist()));
+		/*playlistPanels.add(createPlaylistPanel(new Playlist()));
 		panelPlaylists.add(playlistPanels.get(0),gbc2,-1);
 		subSongPanels.add(new JPanel(new GridBagLayout()));
 		panelPlaylists.add(subSongPanels.get(0),gbc2,-1);
@@ -177,10 +167,10 @@ public class CoolMusicPlayerGUI extends JFrame {
 		currPlaylistSongPanels.add(createSubSongPanel(""));
 		subSongPanels.get(1).add(currPlaylistSongPanels.get(1),gbcSub,-1);
 		
-		panelPlaylists.add(subSongPanels.get(1),gbc2,-1);
+		panelPlaylists.add(subSongPanels.get(1),gbc2,-1);*/
 		
 		i = 0;
-		/*Playlist tempPlaylist = getPlaylist(i);
+		Playlist tempPlaylist = music.getPlaylist(i);
 		while(tempPlaylist != null)
 		{
 			playlistPanels.add(createPlaylistPanel(tempPlaylist));
@@ -188,8 +178,8 @@ public class CoolMusicPlayerGUI extends JFrame {
 			subSongPanels.add(new JPanel());
 			panelPlaylists.add(subSongPanels.get(i),gbc2,-1);
 			i++;
-			tempPlaylist = getPlaylist(i);
-		}*/
+			tempPlaylist = music.getPlaylist(i);
+		}
 		
 		panelPlaylists.add(new JPanel(),gbc3,-1);
 		
@@ -197,11 +187,6 @@ public class CoolMusicPlayerGUI extends JFrame {
 	    
 	    //Queue
 		JPanel panelQueue = new JPanel(new GridBagLayout());
-		/*DefaultListModel qItems = new DefaultListModel();
-		JList qList = new JList(qItems);
-		qList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		qList.setLayoutOrientation(JList.VERTICAL);
-		JScrollPane qScroll = new JScrollPane(qList);*/
 		JScrollPane qScroll = new JScrollPane(panelQueue);
 		qScroll.setMinimumSize(new Dimension(1460, 600));
 		qScroll.setPreferredSize(new Dimension(1460,600));
