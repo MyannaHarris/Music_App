@@ -276,7 +276,7 @@ public class Music {
 	  * */
 	public void emptyQueue()
 	{
-		//queue = null;
+		queue = new MusicQueue();
 	}
 	
 	/** Add song to queue

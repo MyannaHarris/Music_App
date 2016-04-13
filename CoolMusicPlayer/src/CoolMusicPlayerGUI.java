@@ -202,7 +202,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 		Song tempQ = music.getQueueSong(i);
 		while(tempQ != null)
 		{
-			queuePanels.add(createSongPanel(tempQ));
+			queuePanels.add(createQueuePanel(tempQ));
 			panelQueue.add(queuePanels.get(i),gbc2,-1);
 			i++;
 			tempQ = music.getQueueSong(i);
@@ -472,6 +472,89 @@ public class CoolMusicPlayerGUI extends JFrame {
 		return songPanel;
 	}
 	
+	/** Create panel for a song in the JScrollPane
+	  * @pre CoolMusicPlayerGUI object exists
+	  * @post return panel for song
+	  * @param - Song info
+	  * @return songPanel
+	  * */
+	private JPanel createQueuePanel(Song s)
+	{
+		JPanel songPanel = new JPanel();
+		songPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
+		
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.anchor = GridBagConstraints.NORTHWEST;
+		gbc.weightx=1;
+		
+		JPanel namePanel = new JPanel(new GridBagLayout());
+		namePanel.setPreferredSize(new Dimension(270,50));
+		JPanel artistPanel = new JPanel(new GridBagLayout());
+		artistPanel.setPreferredSize(new Dimension(270,50));
+		JPanel albumPanel = new JPanel(new GridBagLayout());
+		albumPanel.setPreferredSize(new Dimension(270,50));
+		JPanel genrePanel = new JPanel(new GridBagLayout());
+		genrePanel.setPreferredSize(new Dimension(270,50));
+		
+		JButton playButtonP = new JButton(">");
+		JLabel nameL = new JLabel(s.getName());
+		JLabel artistL = new JLabel(s.getArtist());
+		artistPanel.add(artistL,gbc);
+		JLabel albumL = new JLabel(s.getAlbum());
+		albumPanel.add(albumL,gbc);
+		JLabel genreL = new JLabel(s.getGenre());
+		genrePanel.add(genreL,gbc);
+		JButton infoButtonP = new JButton("i");
+		JButton deleteButtonP = new JButton("Delete");
+		
+	    songPanel.add(namePanel);
+	    songPanel.add(artistPanel);
+	    songPanel.add(albumPanel);
+	    songPanel.add(genrePanel);
+	    songPanel.add(infoButtonP);
+	    songPanel.add(deleteButtonP);
+	    
+	    infoButtonP.addMouseListener(new MouseAdapter()
+		{  
+		    public void mouseClicked(MouseEvent e)  
+		    {
+		    	int i = 0;
+		    	for(int k=0; k<queuePanels.size(); k++)
+		    	{
+		    		Component[] listC = queuePanels.get(i).getComponents();
+		    		if(listC[6] == e.getComponent())
+		    		{
+		    			i=k;
+		    			break;
+		    		}
+		    	}
+		    	
+		    	viewSongInfo(music.getQueueSong(i));
+		    }  
+		});
+	    
+	    deleteButtonP.addMouseListener(new MouseAdapter()
+		{  
+		    public void mouseClicked(MouseEvent e)  
+		    {
+		    	int i = 0;
+		    	for(int k=0; k<queuePanels.size(); k++)
+		    	{
+		    		Component[] listC = queuePanels.get(i).getComponents();
+		    		if(listC[7] == e.getComponent())
+		    		{
+		    			i=k;
+		    			break;
+		    		}
+		    	}
+		    	
+		    	//removeSongFromQueue(i);
+		    }  
+		});
+		
+		return songPanel;
+	}
+	
 	/** Create panel for a playlist in the JScrollPane
 	  * @pre CoolMusicPlayerGUI object exists
 	  * @post return panel for playlist
@@ -648,7 +731,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 		    		}
 		    	}
 		    	
-		    	removeSong(i);
+		    	//music.deleteFromPlaylist(i);
 		    }  
 		});
 		
