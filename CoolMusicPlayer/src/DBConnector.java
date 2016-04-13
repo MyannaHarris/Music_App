@@ -2,6 +2,7 @@
  * 
  */
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Properties;
 
 /**
@@ -200,12 +201,12 @@ public class DBConnector {
 		return "";
 	}
 	
-	public void getAllSongs() {
-		
+	public ArrayList<ResultSet> getAllSongs() {
+		return new ArrayList<ResultSet>();
 	}
 	
-	public void getAllPlaylist () {
-		
+	public ArrayList<ResultSet> getAllPlaylist () {
+		return new ArrayList<ResultSet>();
 	}
 	
 	public boolean addToPlaylist(int pID, int sID) {

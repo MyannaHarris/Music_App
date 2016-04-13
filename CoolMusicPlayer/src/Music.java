@@ -25,13 +25,23 @@ public class Music {
 	  * */
 	public Music()
 	{
+		db = new DBConnector();
 		listPlaylists = new ArrayList<Playlist>();
-		//listPlaylists = getAllPlaylist();
+		listPlaylists = getAllPlaylist();
 		queue = new MusicQueue();
 		listSongs = new ArrayList<Song>();
-		//listSongs = getAllSongs();
-		db = new DBConnector();
+		listSongs = getAllSongs();
 		musicPlayer = new MusicPlayer();
+	}
+	
+	public ArrayList<ResultSet> getAllPlaylist() {
+		ArrayList<ResultSet> result = db.getAllPlaylist();
+		return new ArrayList<Playlist>();
+	}
+	
+	public ArrayList<ResultSet> getAllSongs() {
+		ArrayList<ResultSet> result = db.getAllSongs();
+		return new ArrayList<Song>();
 	}
 	
 	/** Plays the current song if paused, else does nothing
