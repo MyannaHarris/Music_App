@@ -194,6 +194,13 @@ public class CoolMusicPlayerGUI extends JFrame {
 		JScrollPane qScroll = new JScrollPane(panelQueue);
 		qScroll.setMinimumSize(new Dimension(1460, 600));
 		qScroll.setPreferredSize(new Dimension(1460,600));
+		
+		//play queue
+		JPanel playQueueButtonPanel = new JPanel();
+	    JButton playQueueButton = new JButton("Add Song");
+	    playQueueButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+	    playQueueButtonPanel.add(playQueueButton);
+	    panelQueue.add(playQueueButtonPanel,gbc3,-1);
 
 		//getQueueSong
 		queuePanels = new ArrayList<JPanel>();
@@ -323,24 +330,15 @@ public class CoolMusicPlayerGUI extends JFrame {
 			}
         });
 	    
-	    /*
-	     * private String getArtistDesc(String aName)
-	private String getAlbumDesc(String aName)
-	private void playQueue()
-	private void playPlaylist(int pIndex)
-	private void addToPlaylist(int pIndex, int sIndex)
-	private void addToQueue(int sIndex)
-	
-	//private void addPlaylist(int sIndex) already exists
-	
-	private void removePlaylist(int pIndex)
-	private void removeSong(int sIndex)
-	private void addSongPage()
-	private void playSong(int sIndex)
-	private void updatePlay(int ID)	
-	private void viewSongInfo()
-	private void success(String msg)
-	     */
+	    playQueueButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				SwingUtilities.invokeLater(new Runnable() {
+					public void run() {
+						music.playQueue();
+					}
+				});
+			}
+        });
 	    
 	    setSize(1500,800);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
