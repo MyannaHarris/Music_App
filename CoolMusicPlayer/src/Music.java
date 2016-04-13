@@ -280,6 +280,17 @@ public class Music {
 		return songObj;
 	}
 	
+	public Song viewSongInPlaylist(int pIndex, int sIndex) {
+		Song songObj = null;
+		int id = listPlaylists.get(pIndex).getList().get(sIndex);
+		for (int i = 0; i<listSongs.size(); i++) {
+			if (listSongs.get(i).getID() == id) {
+				songObj = listSongs.get(i);
+			}
+		}
+		return songObj;
+	}
+	
 	/** Empties the queue
 	  * @pre Queue exists
 	  * @post Queue is empty
@@ -351,6 +362,13 @@ public class Music {
 		return db.addToPlaylist(pID, sID);
 	}
 	
+	public void deleteFromPlaylist(int pIndex, int sIndex) {
+		int pID = listPlaylists.get(pIndex).getID();
+		int sID = listPlaylists.get(pIndex).getList().get(sIndex);
+		db.removeFromPlaylist(pID,sID);
+		listPlaylists.get(pIndex).removeAt(sIndex);
+	}
+	
 	/** Delete song from app and database
 	  * @pre song index given
 	  * @post Song removed from app and database if exists
@@ -366,15 +384,7 @@ public class Music {
 			if (worked) {
 				for (int a=0; a<listPlaylists.size(); a++) {
 					Playlist currPlaylist = listPlaylists.get(a);
-					ArrayList<Integer> list = currPlaylist.getList();
-					int s = currPlaylist.getSize();
-					for (int b=0; b<s; b++) {
-						if (list.get(b)==id) {
-							currPlaylist.removeAt(b);
-							b--;
-							s--;
-						}
-					}
+					currPlaylist.removeSong(id);
 				}
 				listSongs.remove(sIndex);
 			}
