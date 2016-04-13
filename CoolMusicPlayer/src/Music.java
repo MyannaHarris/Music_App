@@ -239,11 +239,12 @@ public class Music {
 	  * @post Song playing, song only one in queue
 	  * @param sIndex - song index to play
 	  * */
-	public void playSong(int sIndex)
+	public boolean playSong(int sIndex)
 	{
 		emptyQueue();
 		addToQueue(sIndex);
 		playQueue();
+		return true;
 	}
 	
 	/** Returns the playlist object

@@ -197,7 +197,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 		
 		//play queue
 		JPanel playQueueButtonPanel = new JPanel();
-	    JButton playQueueButton = new JButton("Add Song");
+	    JButton playQueueButton = new JButton("Play Queue");
 	    playQueueButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 	    playQueueButtonPanel.add(playQueueButton);
 	    panelQueue.add(playQueueButtonPanel,gbc3,-1);
@@ -892,8 +892,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 	{
 		try
 		{
-			music.emptyQueue();
-			if (music.addToQueue(sIndex))
+			if (music.playSong(sIndex))
 				playQueue();
 			else
 				throw new FailException("Song not played");
