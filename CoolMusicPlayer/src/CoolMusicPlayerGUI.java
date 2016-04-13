@@ -65,6 +65,9 @@ public class CoolMusicPlayerGUI extends JFrame {
 	JTextField albumField;
 	JTextField alDescField;
 	
+	//Song object for actions
+	Song currSong;
+	
 	/** Constructor
 	  * @pre called
 	  * @post CoolMusicPlayerGUI object created, GUI open and running
@@ -720,9 +723,9 @@ public class CoolMusicPlayerGUI extends JFrame {
 		    public void mouseClicked(MouseEvent e)  
 		    {
 		    	int i = 0;
-		    	for(int k=0; k<allPanels.size(); k++)
+		    	for(int k=0; k<currPlaylistSongPanels.size(); k++)
 		    	{
-		    		Component[] listC = allPanels.get(i).getComponents();
+		    		Component[] listC = currPlaylistSongPanels.get(k).getComponents();
 		    		if(listC[4] == e.getComponent())
 		    		{
 		    			i=k;
@@ -730,7 +733,18 @@ public class CoolMusicPlayerGUI extends JFrame {
 		    		}
 		    	}
 		    	
-		    	viewSongInfo(music.getSong(i));
+		    	int p = 0;
+		    	for(int k=0; k<subSongPanels.size();k++)
+		    	{
+		    		Component[] listSub = subSongPanels.get(k).getComponents();
+		    		if(currPlaylistSongPanels.get(0) == listSub[0])
+		    		{
+		    			p=k;
+		    			break;
+		    		}
+		    	}
+		    	
+		    	//viewSongInfo(music.getSongFromPlaylist(p,i));
 		    }  
 		});
 	    
@@ -739,9 +753,9 @@ public class CoolMusicPlayerGUI extends JFrame {
 		    public void mouseClicked(MouseEvent e)  
 		    {
 		    	int i = 0;
-		    	for(int k=0; k<allPanels.size(); k++)
+		    	for(int k=0; k<currPlaylistSongPanels.size(); k++)
 		    	{
-		    		Component[] listC = allPanels.get(i).getComponents();
+		    		Component[] listC = currPlaylistSongPanels.get(i).getComponents();
 		    		if(listC[5] == e.getComponent())
 		    		{
 		    			i=k;
@@ -749,7 +763,18 @@ public class CoolMusicPlayerGUI extends JFrame {
 		    		}
 		    	}
 		    	
-		    	//music.deleteFromPlaylist(i);
+		    	int p = 0;
+		    	for(int k=0; k<subSongPanels.size();k++)
+		    	{
+		    		Component[] listSub = subSongPanels.get(k).getComponents();
+		    		if(currPlaylistSongPanels.get(0) == listSub[0])
+		    		{
+		    			p=k;
+		    			break;
+		    		}
+		    	}
+		    	
+		    	//music.deleteFromPlaylist(p,i);
 		    }  
 		});
 		
@@ -804,11 +829,11 @@ public class CoolMusicPlayerGUI extends JFrame {
 	  * @param sIndex - song index in list
 	  * @exception FailException if adding fails
 	  * */
-	private void addToPlaylist(int pIndex, int sIndex)
+	private void addToPlaylist(int pIndex, int sID)
 	{
 		try
 		{
-			if (music.addToPlaylist(pIndex,sIndex))
+			if (music.addToPlaylist(pIndex,sID))
 			    success("Song added to playlist successfully!");
 			else
 				throw new FailException("Song not added");
@@ -825,11 +850,11 @@ public class CoolMusicPlayerGUI extends JFrame {
 	  * @param sIndex - song index in list
 	  * @exception FailException if adding fails
 	  * */
-	private void addToQueue(int sIndex)
+	private void addToQueue(int sID)
 	{
 		try
 		{
-			if (music.addToQueue(sIndex))
+			if (music.addToQueue(sID))
 				success("Added to queue successfully!");
 			else
 				throw new FailException("Song not added");
@@ -1150,6 +1175,8 @@ public class CoolMusicPlayerGUI extends JFrame {
 	  * */
 	private void plusSongPopup(Song s)
 	{
+		currSong = s;
+		
 		GridBagConstraints gbcPopup = new GridBagConstraints();
 		gbcPopup.gridwidth = GridBagConstraints.REMAINDER;
 		gbcPopup.weightx = 1;
@@ -1180,7 +1207,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				SwingUtilities.invokeLater(new Runnable() {
 					public void run() {
-						//music.addToQueue(s.getID());
+						addToQueue(currSong.getID());
 					}
 				});
 			}
@@ -1195,7 +1222,11 @@ public class CoolMusicPlayerGUI extends JFrame {
 						        "What is the new playlist name?", 
 						        "Playlist name", 
 						        JOptionPane.QUESTION_MESSAGE);
-						//music.makePlaylist(name,s.getID());
+						
+						if ((name != null) && (name.length() > 0)) {
+							music.makePlaylist(name,currSong.getID());
+						    return;
+						}
 					}
 				});
 			}
@@ -1205,15 +1236,25 @@ public class CoolMusicPlayerGUI extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				SwingUtilities.invokeLater(new Runnable() {
 					public void run() {
-						//Object[] options = music;
-						/*String s = (String)JOptionPane.showInputDialog(
+						ArrayList<String> optionsList = new ArrayList<String>();
+						optionsList.add("1");
+						optionsList.add("2");
+						//ArrayList<String> optionsList = music.getPlaylistNames().toArray();
+						Object[] options = optionsList.toArray();
+						String s = (String)JOptionPane.showInputDialog(
 								            null,
 						                    "Choose the type of Todo to add",
 						                    "Todo Type",
 						                    JOptionPane.PLAIN_MESSAGE,
 						                    null,
 						                    options,
-						                    "Task");*/
+						                    "Task");
+						
+						if ((s != null) && (s.length() > 0)) {
+							int i = optionsList.indexOf(s);
+							addToPlaylist(i, currSong.getID());
+						    return;
+						}
 					}
 				});
 			}

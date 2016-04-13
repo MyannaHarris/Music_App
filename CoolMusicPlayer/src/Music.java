@@ -343,10 +343,10 @@ public class Music {
 	  * @param sIndex - song index
 	  * @return boolean - true if worked, false otherwise
 	  * */
-	public boolean addToPlaylist(int pIndex, int sIndex)
+	public boolean addToPlaylist(int pIndex, int sIDp)
 	{
 		int pID = listPlaylists.get(pIndex).getID();
-		int sID = listSongs.get(sIndex).getID();
+		int sID = sIDp;
 		listPlaylists.get(pIndex).addSong(sID);
 		return db.addToPlaylist(pID, sID);
 	}
