@@ -117,7 +117,7 @@ public class Music {
 	  * */
 	public Song getSong(int sIndex)
 	{
-	    if (sIndex < listSongs.size())
+	    if (sIndex >= 0 && sIndex < listSongs.size())
 	    {
 			return listSongs.get(sIndex);
 		}
@@ -143,7 +143,7 @@ public class Music {
 	  * */
 	public Song getQueueSong(int sIndex)
 	{
-	    if (sIndex < queue.getSize())
+	    if (sIndex >= 0 && sIndex < queue.getSize())
 	    {
 	    	int id = queue.getSongAt(sIndex);
 			return getSongInfo(id);
@@ -254,6 +254,8 @@ public class Music {
 	  * */
 	public Playlist getPlaylist(int pIndex)
 	{
+		if (pIndex < 0 || pIndex >= listPlaylists.size())
+			return null;
 		return listPlaylists.get(pIndex);
 	}
 	
