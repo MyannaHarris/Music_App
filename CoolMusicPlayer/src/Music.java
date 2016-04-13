@@ -34,13 +34,13 @@ public class Music {
 		musicPlayer = new MusicPlayer();
 	}
 	
-	public ArrayList<ResultSet> getAllPlaylist() {
-		ArrayList<ResultSet> result = db.getAllPlaylist();
+	public ResultSet getAllPlaylist() {
+		ResultSet result = db.getAllPlaylist();
 		return new ArrayList<Playlist>();
 	}
 	
-	public ArrayList<ResultSet> getAllSongs() {
-		ArrayList<ResultSet> result = db.getAllSongs();
+	public ResultSet getAllSongs() {
+		ResultSet result = db.getAllSongs();
 		return new ArrayList<Song>();
 	}
 	

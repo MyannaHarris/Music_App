@@ -201,12 +201,12 @@ public class DBConnector {
 		return "";
 	}
 	
-	public ArrayList<ResultSet> getAllSongs() {
-		return new ArrayList<ResultSet>();
+	public ResultSet getAllSongs() {
+		return null;
 	}
 	
-	public ArrayList<ResultSet> getAllPlaylist () {
-		return new ArrayList<ResultSet>();
+	public ResultSet getAllPlaylist () {
+		return null;
 	}
 	
 	public boolean addToPlaylist(int pID, int sID) {
