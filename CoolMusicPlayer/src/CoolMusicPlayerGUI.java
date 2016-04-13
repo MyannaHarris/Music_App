@@ -280,6 +280,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 	    gbc.gridwidth = 1;
 	    pane.add(addSongButtonPanel, gbc);
 	    
+	    
 	    restartButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				SwingUtilities.invokeLater(new Runnable() {
@@ -929,7 +930,8 @@ public class CoolMusicPlayerGUI extends JFrame {
 		infoS += "Description: " + s.getAlDesc() + "\n";
 		infoS += "Genre: " + s.getGenre() + "\n";
 		infoS += "Path: " + s.getPath();
-		JOptionPane.showMessageDialog(pane, infoS);
+		JOptionPane.showMessageDialog(pane, infoS,"Song Info",
+				JOptionPane.PLAIN_MESSAGE);
 	}
 	
 	/** Creates add "+" menu
