@@ -48,15 +48,21 @@ public class CoolMusicPlayerGUI extends JFrame {
 	//Music class variable
 	private Music music;
 	
-	//lists of panels for scrollpanes
+	//panels for scrollpanes
+	GridBagConstraints gbc2;
+	GridBagConstraints gbc3;
+	JPanel panelAll;
 	ArrayList<JPanel> allPanels;
+	JPanel panelPlaylists;
 	ArrayList<JPanel> playlistPanels;
+	boolean openSub; // flag to check if subsongs are showing
+	int openSubIdx;
 	ArrayList<JPanel> queuePanels;
+	JPanel panelQueue;
 	
 	//list of panels for songs in playlists
 	ArrayList<JPanel> subSongPanels;
 	ArrayList<JPanel> currPlaylistSongPanels;
-	//gridbagconstraints for the subsong panels
 	GridBagConstraints gbcSub;
 	
 	//Text boxes for adding a song
@@ -104,7 +110,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 	    
 	    
 	    //Constraints for gridbag for scroll panels
-	    GridBagConstraints gbc2 = new GridBagConstraints();
+	    gbc2 = new GridBagConstraints();
 	    gbc2.anchor = GridBagConstraints.NORTHWEST;
         gbc2.gridwidth = GridBagConstraints.REMAINDER;
         gbc2.weightx = 1;
@@ -120,7 +126,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 	    gbcSub.fill = GridBagConstraints.HORIZONTAL;
         
         //Constraints for gridbag for blank panels
-	    GridBagConstraints gbc3 = new GridBagConstraints();
+	    gbc3 = new GridBagConstraints();
 	    gbc3.anchor = GridBagConstraints.NORTHWEST;
         gbc3.gridwidth = GridBagConstraints.REMAINDER;
         gbc3.weightx = 1;
@@ -128,7 +134,7 @@ public class CoolMusicPlayerGUI extends JFrame {
         gbc3.weighty = 1.0;
 	    
 	    //All Music
-	    JPanel panelAll = new JPanel(new GridBagLayout());
+	    panelAll = new JPanel(new GridBagLayout());
 	    JScrollPane allScroll = new JScrollPane(panelAll);
 		allScroll.setMinimumSize(new Dimension(1460, 600));
 		allScroll.setPreferredSize(new Dimension(1460,600));
@@ -170,7 +176,9 @@ public class CoolMusicPlayerGUI extends JFrame {
 		panel1.add(allScroll);
 	    
 	    //Playlists
-		JPanel panelPlaylists = new JPanel(new GridBagLayout());
+		openSub = false;
+		openSubIdx = 0;
+		panelPlaylists = new JPanel(new GridBagLayout());
 		JScrollPane playScroll = new JScrollPane(panelPlaylists);
 		playScroll.setMinimumSize(new Dimension(1460, 600));
 		playScroll.setPreferredSize(new Dimension(1460,600));
@@ -219,7 +227,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 		panel2.add(playScroll);
 	    
 	    //Queue
-		JPanel panelQueue = new JPanel(new GridBagLayout());
+		panelQueue = new JPanel(new GridBagLayout());
 		JScrollPane qScroll = new JScrollPane(panelQueue);
 		qScroll.setMinimumSize(new Dimension(1460, 600));
 		qScroll.setPreferredSize(new Dimension(1460,600));
@@ -428,7 +436,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 		    	int i = 0;
 		    	for(int k=0; k<allPanels.size(); k++)
 		    	{
-		    		Component[] listC = allPanels.get(i).getComponents();
+		    		Component[] listC = allPanels.get(k).getComponents();
 		    		if(listC[0] == e.getComponent())
 		    		{
 		    			i=k;
@@ -447,7 +455,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 		    	int i = 0;
 		    	for(int k=0; k<allPanels.size(); k++)
 		    	{
-		    		Component[] listC = allPanels.get(i).getComponents();
+		    		Component[] listC = allPanels.get(k).getComponents();
 		    		if(listC[2] == e.getComponent())
 		    		{
 		    			i=k;
@@ -466,7 +474,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 		    	int i = 0;
 		    	for(int k=0; k<allPanels.size(); k++)
 		    	{
-		    		Component[] listC = allPanels.get(i).getComponents();
+		    		Component[] listC = allPanels.get(k).getComponents();
 		    		if(listC[6] == e.getComponent())
 		    		{
 		    			i=k;
@@ -485,7 +493,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 		    	int i = 0;
 		    	for(int k=0; k<allPanels.size(); k++)
 		    	{
-		    		Component[] listC = allPanels.get(i).getComponents();
+		    		Component[] listC = allPanels.get(k).getComponents();
 		    		if(listC[7] == e.getComponent())
 		    		{
 		    			i=k;
@@ -493,6 +501,11 @@ public class CoolMusicPlayerGUI extends JFrame {
 		    		}
 		    	}
 		    	
+		    	panelAll.remove(allPanels.get(i));
+		    	allPanels.remove(i);
+		    	validate();
+		        repaint();
+		        panelAll.updateUI();
 		    	removeSong(i);
 		    }  
 		});
@@ -549,7 +562,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 		    	int i = 0;
 		    	for(int k=0; k<queuePanels.size(); k++)
 		    	{
-		    		Component[] listC = queuePanels.get(i).getComponents();
+		    		Component[] listC = queuePanels.get(k).getComponents();
 		    		if(listC[6] == e.getComponent())
 		    		{
 		    			i=k;
@@ -568,14 +581,18 @@ public class CoolMusicPlayerGUI extends JFrame {
 		    	int i = 0;
 		    	for(int k=0; k<queuePanels.size(); k++)
 		    	{
-		    		Component[] listC = queuePanels.get(i).getComponents();
+		    		Component[] listC = queuePanels.get(k).getComponents();
 		    		if(listC[7] == e.getComponent())
 		    		{
 		    			i=k;
 		    			break;
 		    		}
 		    	}
-		    	
+		    	panelQueue.remove(queuePanels.get(i));
+		    	queuePanels.remove(i);
+		    	validate();
+		        repaint();
+		        panelQueue.updateUI();
 		    	music.removeSongFromQueue(i);
 		    }  
 		});
@@ -612,32 +629,61 @@ public class CoolMusicPlayerGUI extends JFrame {
 		{  
 		    public void mouseClicked(MouseEvent e)  
 		    {
-		    	currPlaylistSongPanels.clear();
-		    	int i = 0;
-		    	for(int k=0; k<playlistPanels.size(); k++)
+		    	if(!openSub)
 		    	{
-		    		Component[] listC = playlistPanels.get(i).getComponents();
-		    		if(listC[1] == e.getComponent())
-		    		{
-		    			i=k;
-		    			break;
-		    		}
+			    	currPlaylistSongPanels.clear();
+			    	int i = 0;
+			    	for(int k=0; k<playlistPanels.size(); k++)
+			    	{
+			    		Component[] listC = playlistPanels.get(k).getComponents();
+			    		if(listC[1] == e.getComponent())
+			    		{
+			    			i=k;
+			    			break;
+			    		}
+			    	}
+			    	
+			    	Playlist tempPlaylist = music.getPlaylist(i);
+			    	
+			    	ArrayList<Integer> songIDs;
+			    	songIDs = tempPlaylist.getList();
+			    	
+			    	for(int m = 0; m<songIDs.size(); m++)
+			    	{
+			    		Song temp = music.getSongInfo(songIDs.get(m));
+	
+			    		currPlaylistSongPanels.add(createSubSongPanel(temp));
+			    		subSongPanels.get(i).add(currPlaylistSongPanels.get(m),gbcSub,-1);
+			    	}
+			    	openSub = true;
+			    	openSubIdx = i;
+			    	validate();
+			        repaint();
+			        subSongPanels.get(i).updateUI();
 		    	}
-		    	
-		    	Playlist tempPlaylist = music.getPlaylist(i);
-		    	
-		    	ArrayList<Integer> songIDs;
-		    	songIDs = tempPlaylist.getList();
-		    	
-		    	for(int m = 0; m<songIDs.size(); m++)
+		    	else
 		    	{
-		    		Song temp = music.getSongInfo(songIDs.get(m));
-
-		    		currPlaylistSongPanels.add(createSubSongPanel(temp));
-		    		subSongPanels.get(i).add(currPlaylistSongPanels.get(m),gbcSub,-1);
+		    		int i = 0;
+			    	for(int k=0; k<playlistPanels.size(); k++)
+			    	{
+			    		Component[] listC = playlistPanels.get(k).getComponents();
+			    		if(listC[1] == e.getComponent())
+			    		{
+			    			i=k;
+			    			break;
+			    		}
+			    	}
+			    	
+			    	if (i == openSubIdx)
+			    	{
+			    		currPlaylistSongPanels.clear();
+			    		subSongPanels.get(openSubIdx).removeAll();
+			    		openSub = false;
+			    		validate();
+				        repaint();
+				        subSongPanels.get(openSubIdx).updateUI();
+			    	}
 		    	}
-		    	validate();
-		        repaint();
 		    }  
 		});
 		
@@ -648,7 +694,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 		    	int i = 0;
 		    	for(int k=0; k<playlistPanels.size(); k++)
 		    	{
-		    		Component[] listC = playlistPanels.get(i).getComponents();
+		    		Component[] listC = playlistPanels.get(k).getComponents();
 		    		if(listC[0] == e.getComponent())
 		    		{
 		    			i=k;
@@ -667,14 +713,20 @@ public class CoolMusicPlayerGUI extends JFrame {
 		    	int i = 0;
 		    	for(int k=0; k<playlistPanels.size(); k++)
 		    	{
-		    		Component[] listC = playlistPanels.get(i).getComponents();
+		    		Component[] listC = playlistPanels.get(k).getComponents();
 		    		if(listC[3] == e.getComponent())
 		    		{
 		    			i=k;
 		    			break;
 		    		}
 		    	}
-		    	
+		    	panelPlaylists.remove(playlistPanels.get(i));
+		    	playlistPanels.remove(i);
+		    	panelPlaylists.remove(subSongPanels.get(i));
+		    	subSongPanels.remove(i);
+		    	validate();
+		        repaint();
+		        panelPlaylists.updateUI();
 		    	removePlaylist(i);
 		    }  
 		});
@@ -762,7 +814,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 		    	int i = 0;
 		    	for(int k=0; k<currPlaylistSongPanels.size(); k++)
 		    	{
-		    		Component[] listC = currPlaylistSongPanels.get(i).getComponents();
+		    		Component[] listC = currPlaylistSongPanels.get(k).getComponents();
 		    		if(listC[5] == e.getComponent())
 		    		{
 		    			i=k;
@@ -770,18 +822,23 @@ public class CoolMusicPlayerGUI extends JFrame {
 		    		}
 		    	}
 		    	
-		    	int p = 0;
+		    	int s = 0;
 		    	for(int k=0; k<subSongPanels.size();k++)
 		    	{
 		    		Component[] listSub = subSongPanels.get(k).getComponents();
 		    		if(currPlaylistSongPanels.get(0) == listSub[0])
 		    		{
-		    			p=k;
+		    			s=k;
 		    			break;
 		    		}
 		    	}
 		    	
-		    	music.deleteFromPlaylist(p,i);
+		    	(subSongPanels.get(s)).remove(currPlaylistSongPanels.get(i));
+		    	currPlaylistSongPanels.remove(i);
+		    	validate();
+		        repaint();
+		        (subSongPanels.get(s)).updateUI();
+		    	music.deleteFromPlaylist(i,s);
 		    }  
 		});
 		
@@ -1119,7 +1176,20 @@ public class CoolMusicPlayerGUI extends JFrame {
 			albDesc = alDescField.getText();
 			path = pathField.getText();
 			genre = genreField.getText();
-			music.addSong(song, artist, album, artDesc, albDesc, path, genre);
+			Song tempSong = music.addSong(song, artist, album, artDesc, albDesc, path, genre);
+			
+			
+	    	Component[] listC = panelAll.getComponents();
+	    	panelAll.remove(listC.length-1);
+			
+			allPanels.add(createSongPanel(tempSong));
+			panelAll.add(allPanels.get(allPanels.size()-1),gbc2, -1);
+
+			panelAll.add(new JPanel(),gbc3,-1);
+			
+			validate();
+	        repaint();
+	        panelAll.updateUI();
 		}
 	}
 	
@@ -1215,6 +1285,18 @@ public class CoolMusicPlayerGUI extends JFrame {
 				SwingUtilities.invokeLater(new Runnable() {
 					public void run() {
 						addToQueue(currSong.getID());
+						
+						Component[] listC = panelQueue.getComponents();
+						panelQueue.remove(listC.length-1);
+						
+						queuePanels.add(createSongPanel(currSong));
+						panelQueue.add(queuePanels.get(queuePanels.size()-1),gbc2, -1);
+
+						panelQueue.add(new JPanel(),gbc3,-1);
+						
+						validate();
+				        repaint();
+				        panelQueue.updateUI();
 					}
 				});
 			}
@@ -1231,7 +1313,24 @@ public class CoolMusicPlayerGUI extends JFrame {
 						        JOptionPane.QUESTION_MESSAGE);
 						
 						if ((name != null) && (name.length() > 0)) {
-							music.makePlaylist(name,currSong.getID());
+							Playlist tempPlaylist = music.makePlaylist(name,currSong.getID());
+							
+							if (tempPlaylist != null)
+							{
+								Component[] listC = panelPlaylists.getComponents();
+								panelPlaylists.remove(listC.length-1);
+								
+								playlistPanels.add(createPlaylistPanel(tempPlaylist));
+								panelPlaylists.add(playlistPanels.get(playlistPanels.size()-1),gbc2,-1);
+								subSongPanels.add(new JPanel());
+								panelPlaylists.add(subSongPanels.get(subSongPanels.size()-1),gbc2,-1);
+							
+								panelPlaylists.add(new JPanel(),gbc3,-1);
+								
+								validate();
+						        repaint();
+						        panelPlaylists.updateUI();
+							}
 						    return;
 						}
 					}

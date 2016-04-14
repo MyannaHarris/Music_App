@@ -233,7 +233,7 @@ public class Music {
 	  * @param path - path to song file
 	  * @param genre - genre of song
 	  * */
-	public void addSong(String song,String artist,String album,String artDesc,String albDesc,String path,String genre)
+	public Song addSong(String song,String artist,String album,String artDesc,String albDesc,String path,String genre)
 	{
 		String tempArt;
 		String tempAlb;
@@ -252,6 +252,7 @@ public class Music {
 		int id = db.addSong(song, artist, album, artDesc, albDesc, path, genre);
 		Song songTemp = new Song(song, album, artist, artDesc, albDesc, genre,id,path);
 		listSongs.add(songTemp);
+		return songTemp;
 	}
 	
 	/** Plays selected song, empties queue
@@ -338,16 +339,16 @@ public class Music {
 	  * @param sIndex - song index
 	  * @return boolean - true if worked, false otherwise
 	  * */
-	public boolean makePlaylist(String pName, int sID)
+	public Playlist makePlaylist(String pName, int sID)
 	{
 		int songID = sID;
 		int id = db.addPlaylist(pName, songID);
 		Playlist playTemp = new Playlist(pName, songID, id);
 		listPlaylists.add(playTemp);
 		if (id==0) {
-			return false;
+			return null;
 		}
-		return true;
+		return playTemp;
 	}
 	
 	/** Deletes playlist
