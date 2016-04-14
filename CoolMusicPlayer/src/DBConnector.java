@@ -58,9 +58,9 @@ public class DBConnector {
 		return conn;
 	}
 	
-	public int addSong(String song, String artist, String album, String path, String genre) {
+	public int addSong(String song, String artist, String album, String artDesc, String albDesc, String path, String genre) {
 		try {
-			int songID = addSongDB(song, genre, path, artist, album);
+			int songID = addSongDB(song, genre, path, artist, album, artDesc, albDesc);
 			return songID;
 		} finally {
 		}
@@ -110,7 +110,7 @@ public class DBConnector {
 		}
 	}
 	
-	public int addSongDB(String song, String genre, String path, String artist, String album) {
+	public int addSongDB(String song, String genre, String path, String artist, String album, String artDesc, String albDesc) {
 		try {
 			int maxID = 1;
 			Statement s2 = conn.createStatement();
@@ -127,6 +127,18 @@ public class DBConnector {
 			stmt.setString(3, genre);
 			stmt.setString(4,  path);
 			stmt.execute();
+			Statement s3 = conn.createStatement();
+			s3.execute("SELECT artist_name FROM Artist WHERE artist_name = " + "'" + artist + "'");
+			ResultSet rs3 = s3.getResultSet();
+			if(rs3.getString("artist_name") != artist) {
+				this.addArtist(artist, artDesc);
+			}
+			Statement s4 = conn.createStatement();
+			s4.execute("SELECT album_name FROM Album WHERE album_name = " + "'" + album + "'");
+			ResultSet rs4 = s4.getResultSet();
+			if(rs4.getString("album_name") != album) {
+				this.addAlbum(album, albDesc);
+			}
 			this.addContributingArtistsDB(artist, song, maxID);
 			this.addSongLocationDB(song, album, maxID);
 			return maxID;
