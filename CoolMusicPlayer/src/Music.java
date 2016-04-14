@@ -249,7 +249,7 @@ public class Music {
 		else {
 			tempAlb = albDesc;
 		}
-		int id = db.addSong(song, artist, album, path, genre);
+		int id = db.addSong(song, artist, album, artDesc, albDesc, path, genre);
 		Song songTemp = new Song(song, album, artist, artDesc, albDesc, genre,id,path);
 		listSongs.add(songTemp);
 	}
