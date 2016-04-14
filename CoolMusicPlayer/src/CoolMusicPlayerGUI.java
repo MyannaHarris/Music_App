@@ -135,6 +135,8 @@ public class CoolMusicPlayerGUI extends JFrame {
 		
 		allPanels = new ArrayList<JPanel>();
 		
+		//Comment
+		/*
 		JButton addButtonP = new JButton("Add");
 		panelAll.add(addButtonP,gbc2,-1);
 		addButtonP.addMouseListener(new MouseAdapter()
@@ -143,12 +145,15 @@ public class CoolMusicPlayerGUI extends JFrame {
 		    {
 		    	plusSongPopup(new Song("name","art","al","Desc1","Desc2","Genre",1,"Path"));
 		    }  
-		});
+		});*/
+		//out
 		
+		//comment
 		/*allPanels.add(createSongPanel(new Song()));
 		panelAll.add(allPanels.get(0),gbc2,-1);
 		allPanels.add(createSongPanel(new Song()));
 		panelAll.add(allPanels.get(1),gbc2,-1);*/
+		//out
 		
 		int i = 0;
 		Song tempSong = music.getSong(i);
@@ -176,6 +181,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 	    subSongPanels = new ArrayList<JPanel>();
 	    currPlaylistSongPanels = new ArrayList<JPanel>();
 	    
+	    //comment
 		/*playlistPanels.add(createPlaylistPanel(new Playlist()));
 		panelPlaylists.add(playlistPanels.get(0),gbc2,-1);
 		
@@ -187,13 +193,14 @@ public class CoolMusicPlayerGUI extends JFrame {
 		
 		subSongPanels.add(new JPanel(new GridBagLayout()));
 		
-		currPlaylistSongPanels.add(createSubSongPanel(""));
+		currPlaylistSongPanels.add(createSubSongPanel(new Song()));
 		subSongPanels.get(1).add(currPlaylistSongPanels.get(0),gbcSub,-1);
 		
-		currPlaylistSongPanels.add(createSubSongPanel(""));
+		currPlaylistSongPanels.add(createSubSongPanel(new Song()));
 		subSongPanels.get(1).add(currPlaylistSongPanels.get(1),gbcSub,-1);
 		
 		panelPlaylists.add(subSongPanels.get(1),gbc2,-1);*/
+		//out
 		
 		i = 0;
 		Playlist tempPlaylist = music.getPlaylist(i);
