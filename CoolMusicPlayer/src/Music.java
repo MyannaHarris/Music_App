@@ -41,10 +41,9 @@ public class Music {
 		if(result != null)
 		{
 			try {
-				boolean cont = true;
 				int oldId = 0;
 				int pIndex = -1;
-				while(cont)
+				while(result.next())
 				{
 					int id = result.getInt(1);
 					if(oldId == id)
@@ -55,12 +54,12 @@ public class Music {
 					else
 					{
 						pIndex++;
+						oldId = id;
 						String name = result.getString(2);
 						int sId = result.getInt(3);
 						Playlist p = new Playlist(name,sId,id);
 						listPlaylists.add(p);
 					}
-					cont = result.next();
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -78,8 +77,7 @@ public class Music {
 		if(result != null)
 		{
 			try {
-				boolean cont = true;
-				while(cont)
+				while(result.next())
 				{
 					int id = result.getInt(1);
 					String n = result.getString(2);
@@ -91,7 +89,6 @@ public class Music {
 					String alD = result.getString(8);
 					Song s = new Song(n,al,art,artD,alD,g,id,p);
 					listSongs.add(s);
-					cont = result.next();
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
