@@ -873,7 +873,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 	  * */
 	private void playQueue()
 	{
-		playQueue();
+		music.playQueue();
 	}
 	
 	/** Plays playlist
@@ -883,7 +883,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 	  * */
 	private void playPlaylist(int pIndex)
 	{
-		playPlaylist(pIndex);
+		music.playPlaylist(pIndex);
 	}
 	
 	/** Adds song to playlist, creates playlist if it doesn't exist
