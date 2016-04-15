@@ -404,9 +404,9 @@ public class Music {
 	{
 		int songID = sID;
 		int id = db.addPlaylist(pName, songID);
-		if (id==0) {
+		/*if (id==0) {
 			return null;
-		}
+		}*/
 		Playlist playTemp = new Playlist(pName, songID, id);
 		listPlaylists.add(playTemp);
 		return playTemp;
