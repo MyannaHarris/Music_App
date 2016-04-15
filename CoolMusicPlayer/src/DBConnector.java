@@ -191,12 +191,13 @@ public class DBConnector {
 	
 	public String getAlbumDesc(String album) {
 		try {
-			String albDesc;
+			String albDesc = "";
 			Statement s2 = conn.createStatement();
 			s2.executeQuery("SELECT album_desc FROM Album WHERE album_name = " + "'" + album + "'");
 			ResultSet rs2 = s2.getResultSet();
-			rs2.next();
-			albDesc = rs2.getString(1);
+			if (rs2.next()) {
+				albDesc = rs2.getString(1);
+			}
 			return albDesc;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -210,8 +211,9 @@ public class DBConnector {
 			Statement s2 = conn.createStatement();
 			s2.execute("SELECT artist_desc FROM Artist WHERE artist_name = " + "'" + artist + "'");
 			ResultSet rs2 = s2.getResultSet();
-			rs2.next();
-			artDesc = rs2.getString(1);
+			if (rs2.next()) {
+				artDesc = rs2.getString(1);
+			}
 			return artDesc;
 		} catch (SQLException e) {
 			e.printStackTrace();
