@@ -250,6 +250,7 @@ public class DBConnector {
 			Statement s3 = conn.createStatement();
 			s3.execute("SELECT song_name FROM Song WHERE song_id = " + sID);
 			ResultSet rs3 = s3.getResultSet();
+			rs3.next();
 			String songName = rs3.getString(1);
 			String query = " insert into Playlist_assignment (assignment_id, playlist_id, song_id, song_name)" + " values(?, ?, ?, ?)";
 			PreparedStatement stmt = conn.prepareStatement(query);
