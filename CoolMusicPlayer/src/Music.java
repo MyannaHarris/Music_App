@@ -159,6 +159,9 @@ public class Music {
 			}
 			musicPlayer.play(path);
 		}
+		else {
+			musicPlayer.stop();
+		}
 	}
 	
 	/** Plays the queue using MusicPlayer object
