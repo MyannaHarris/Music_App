@@ -37,11 +37,31 @@ public class Music {
 	
 	public ArrayList<Playlist> getAllPlaylist() {
 		ResultSet result = db.getAllPlaylist();
+		if(result != null)
+		{
+			return new ArrayList<Playlist>();
+		}
+		//playlist id
+		//playlist name
+		//song id
 		return new ArrayList<Playlist>();
 	}
 	
 	public ArrayList<Song> getAllSongs() {
 		ResultSet result = db.getAllSongs();
+		
+		if(result != null)
+		{
+			return new ArrayList<Song>();
+		}
+		//song id
+		//song name
+		//genre
+		//song path
+		//artist name
+		//artist desc
+		//album name
+		//album desc
 		return new ArrayList<Song>();
 	}
 	
