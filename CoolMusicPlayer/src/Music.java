@@ -461,15 +461,14 @@ public class Music {
 		if (sIndex > 0 && sIndex < listSongs.size())
 		{
 			int id = listSongs.get(sIndex).getID();
-			boolean worked = db.removeSongs(id);
-			if (worked) {
-				for (int a=0; a<listPlaylists.size(); a++) {
-					Playlist currPlaylist = listPlaylists.get(a);
-					currPlaylist.removeSong(id);
-				}
-				listSongs.remove(sIndex);
+			for (int a=0; a<listPlaylists.size(); a++) {
+				Playlist currPlaylist = listPlaylists.get(a);
+				db.removeFromPlaylist(currPlaylist.getID(),id);
+				currPlaylist.removeSong(id);
 			}
-		    return worked;
+			listSongs.remove(sIndex);
+			db.removeSong(id);
+		    return true;
 		}
 		return false;
 	}
