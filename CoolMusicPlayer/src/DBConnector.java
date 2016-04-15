@@ -191,7 +191,7 @@ public class DBConnector {
 			s2.executeQuery("SELECT album_desc FROM Album WHERE album_name = " + "'" + album + "'");
 			ResultSet rs2 = s2.getResultSet();
 			if (rs2.next()) {
-				albDesc = rs2.getString(1);
+				albDesc = rs2.getString("album_name");
 			}
 			return albDesc;
 		} catch (SQLException e) {
@@ -207,7 +207,7 @@ public class DBConnector {
 			s2.execute("SELECT artist_desc FROM Artist WHERE artist_name = " + "'" + artist + "'");
 			ResultSet rs2 = s2.getResultSet();
 			if (rs2.next()) {
-				artDesc = rs2.getString(1);
+				artDesc = rs2.getString("artist_name");
 			}
 			return artDesc;
 		} catch (SQLException e) {
