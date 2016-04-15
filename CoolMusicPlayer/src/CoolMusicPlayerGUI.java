@@ -919,6 +919,8 @@ public class CoolMusicPlayerGUI extends JFrame {
 	private void playPlaylist(int pIndex)
 	{
 		music.playPlaylist(pIndex);
+
+		updatePlay(music.getPlaylist(pIndex).getList().get(0));
 		
 		queuePanels.clear();
 		panelQueue.removeAll();
@@ -1125,7 +1127,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 				// TODO Auto-generated method stub
 				//String desc = artistField.getText();
 				String desc = getArtistDesc(artistField.getText());
-		    	if(desc != "")
+		    	if(!desc.equals(""))
 				{
 		    		artDescField.setText(desc);
 		    		artDescField.setEditable(false);
@@ -1141,7 +1143,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 				// TODO Auto-generated method stub
 				//String desc = artistField.getText();
 				String desc = getArtistDesc(artistField.getText());
-		    	if(desc != "")
+		    	if(!desc.equals(""))
 				{
 		    		artDescField.setText(desc);
 		    		artDescField.setEditable(false);
@@ -1157,7 +1159,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 				// TODO Auto-generated method stub
 				//String desc = artistField.getText();
 				String desc = getArtistDesc(artistField.getText());
-		    	if(desc != "")
+		    	if(!desc.equals(""))
 				{
 		    		artDescField.setText(desc);
 		    		artDescField.setEditable(false);
@@ -1175,7 +1177,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 			public void insertUpdate(DocumentEvent e) {
 				// TODO Auto-generated method stub
 				String desc = getAlbumDesc(albumField.getText());
-		    	if(desc != "")
+		    	if(!desc.equals(""))
 				{
 		    		alDescField.setText(desc);
 		    		alDescField.setEditable(false);
@@ -1190,7 +1192,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 			public void removeUpdate(DocumentEvent e) {
 				// TODO Auto-generated method stub
 				String desc = getAlbumDesc(albumField.getText());
-		    	if(desc != "")
+		    	if(!desc.equals(""))
 				{
 		    		alDescField.setText(desc);
 		    		alDescField.setEditable(false);
@@ -1205,7 +1207,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 			public void changedUpdate(DocumentEvent e) {
 				// TODO Auto-generated method stub
 				String desc = getAlbumDesc(albumField.getText());
-		    	if(desc != "")
+		    	if(!desc.equals(""))
 				{
 		    		alDescField.setText(desc);
 		    		alDescField.setEditable(false);
