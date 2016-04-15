@@ -356,7 +356,16 @@ public class CoolMusicPlayerGUI extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				SwingUtilities.invokeLater(new Runnable() {
 					public void run() {
+						
+						Song s = music.getQueueSong(0);
+						int sID = s.getID();
+						updatePlay(sID);
 						music.skip();
+						panelQueue.remove(queuePanels.get(0));
+				    	queuePanels.remove(0);
+				    	validate();
+				        repaint();
+				        panelQueue.updateUI();
 					}
 				});
 			}
@@ -706,8 +715,8 @@ public class CoolMusicPlayerGUI extends JFrame {
 			    	
 			    	if (i == openSubIdx)
 			    	{
-			    		currPlaylistSongPanels.clear();
 			    		subSongPanels.get(openSubIdx).removeAll();
+			    		currPlaylistSongPanels.clear();
 			    		openSub = false;
 			    		validate();
 				        repaint();
@@ -832,13 +841,12 @@ public class CoolMusicPlayerGUI extends JFrame {
 		    	for(int k=0; k<subSongPanels.size();k++)
 		    	{
 		    		Component[] listSub = subSongPanels.get(k).getComponents();
-		    		if(currPlaylistSongPanels.get(0) == listSub[0])
+		    		if(listSub.length > 0 && currPlaylistSongPanels.get(0) == listSub[0])
 		    		{
 		    			p=k;
 		    			break;
 		    		}
 		    	}
-		    	
 		    	viewSongInfo(music.viewSongInPlaylist(p,i));
 		    }  
 		});
@@ -862,7 +870,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 		    	for(int k=0; k<subSongPanels.size();k++)
 		    	{
 		    		Component[] listSub = subSongPanels.get(k).getComponents();
-		    		if(currPlaylistSongPanels.get(0) == listSub[0])
+		    		if(listSub.length > 0 && currPlaylistSongPanels.get(0) == listSub[0])
 		    		{
 		    			s=k;
 		    			break;
@@ -874,7 +882,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 		    	validate();
 		        repaint();
 		        (subSongPanels.get(s)).updateUI();
-		    	music.deleteFromPlaylist(i,s);
+		    	music.deleteFromPlaylist(s,i);
 		    }  
 		});
 		
@@ -1401,8 +1409,8 @@ public class CoolMusicPlayerGUI extends JFrame {
 						Object[] options = optionsList.toArray();
 						String s = (String)JOptionPane.showInputDialog(
 								            null,
-						                    "Choose the type of Todo to add",
-						                    "Todo Type",
+						                    "Choose playlist",
+						                    "Add to playlist",
 						                    JOptionPane.PLAIN_MESSAGE,
 						                    null,
 						                    options,
