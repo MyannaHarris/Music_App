@@ -440,7 +440,7 @@ public class Music {
 		int pID = listPlaylists.get(pIndex).getID();
 		int sID = sIDp;
 		listPlaylists.get(pIndex).addSong(sID);
-		return db.addToPlaylist(pID, sID);
+		return db.addToPlaylist(pID, sID).next();
 	}
 	
 	public void deleteFromPlaylist(int pIndex, int sIndex) {
