@@ -1168,7 +1168,14 @@ public class CoolMusicPlayerGUI extends JFrame {
 		int result = JOptionPane.showConfirmDialog(null, myPanel,
 				"Please Enter Song Info", JOptionPane.OK_CANCEL_OPTION,
 				JOptionPane.PLAIN_MESSAGE);
-		if (result == JOptionPane.OK_OPTION) {
+		if (result == JOptionPane.OK_OPTION && 
+				!nameField.getText().equals("") 
+				&& !artistField.getText().equals("")
+				&& !albumField.getText().equals("") 
+				&& !artDescField.getText().equals("")
+				&& !alDescField.getText().equals("") 
+				&& !pathField.getText().equals("")
+				&& !genreField.getText().equals("")) {
 			song = nameField.getText();
 			artist = artistField.getText();
 			album = albumField.getText();
@@ -1180,7 +1187,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 			
 			
 	    	Component[] listC = panelAll.getComponents();
-	    	panelAll.remove(listC.length-1);
+	    	panelAll.remove(listC[listC.length-1]);
 			
 			allPanels.add(createSongPanel(tempSong));
 			panelAll.add(allPanels.get(allPanels.size()-1),gbc2, -1);
@@ -1190,6 +1197,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 			validate();
 	        repaint();
 	        panelAll.updateUI();
+	        success("Song added");
 		}
 	}
 	
@@ -1287,7 +1295,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 						addToQueue(currSong.getID());
 						
 						Component[] listC = panelQueue.getComponents();
-						panelQueue.remove(listC.length-1);
+						panelQueue.remove(listC[listC.length-1]);
 						
 						queuePanels.add(createSongPanel(currSong));
 						panelQueue.add(queuePanels.get(queuePanels.size()-1),gbc2, -1);
@@ -1318,7 +1326,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 							if (tempPlaylist != null)
 							{
 								Component[] listC = panelPlaylists.getComponents();
-								panelPlaylists.remove(listC.length-1);
+								panelPlaylists.remove(listC[listC.length-1]);
 								
 								playlistPanels.add(createPlaylistPanel(tempPlaylist));
 								panelPlaylists.add(playlistPanels.get(playlistPanels.size()-1),gbc2,-1);
