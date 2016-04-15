@@ -141,6 +141,7 @@ public class DBConnector {
 			}
 			this.addContributingArtistsDB(artist, song, maxID);
 			this.addSongLocationDB(song, album, maxID);
+			this.addCollaborativeCreditDB(artist, album);
 			return maxID;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -154,11 +155,12 @@ public class DBConnector {
 			s2.executeQuery("SELECT artist_id FROM Artist WHERE artist_name = " + "'" + artist + "'");
 			ResultSet rs2 = s2.getResultSet();
 			rs2.next();
-			int aID = rs2.getInt("artist_name");
+			int aID = rs2.getInt(1);
 			String query = " insert into Contributing_Artists (artist_id, song_id)" + " values(?, ?)";
 			PreparedStatement stmt = conn.prepareStatement(query);
 			stmt.setInt(1, aID);
 			stmt.setInt(2, sID);
+			stmt.execute();
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -172,11 +174,48 @@ public class DBConnector {
 			s2.executeQuery("SELECT album_id FROM Album WHERE album_name = " + "'" + album + "'");
 			ResultSet rs2 = s2.getResultSet();
 			rs2.next();
-			int aID = rs2.getInt("album_name");
+			int aID = rs2.getInt(1);
 			String query = " insert into Song_Location (song_id, album_id)" + " values(?, ?)";
 			PreparedStatement stmt = conn.prepareStatement(query);
 			stmt.setInt(1, sID);
 			stmt.setInt(2, aID);
+			stmt.execute();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public boolean addCollaborativeCreditDB(String artist, String album) {
+		try {
+			Statement s2 = conn.createStatement();
+			s2.executeQuery("SELECT artist_id FROM Artist WHERE artist_name = " + "'" + artist + "'");
+			ResultSet rs2 = s2.getResultSet();
+			int artID = 0;
+			if(!(rs2.next())) {
+				artID = rs2.getInt(1);
+			}
+			else {
+				System.out.println("returning false");
+				return false;
+			}
+			Statement s3 = conn.createStatement();
+			s2.executeQuery("SELECT album_id FROM Album WHERE album_name = " + "'" + album + "'");
+			ResultSet rs3 = s3.getResultSet();
+			int albID = 0;
+			if(!(rs3.next())) {
+				albID = rs3.getInt(1);	
+			}
+			else {
+				System.out.println("returning false");
+				return false;
+			}
+			String query = " insert into Collaborative_Credit (artist_id, album_id)" + " values(?, ?)";
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setInt(1, artID);
+			stmt.setInt(2, albID);
+			stmt.execute();
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
