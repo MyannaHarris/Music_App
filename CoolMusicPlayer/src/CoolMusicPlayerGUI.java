@@ -60,6 +60,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 	int openSubIdx;
 	ArrayList<JPanel> queuePanels;
 	JPanel panelQueue;
+	JPanel playQueueButtonPanel;
 	
 	//list of panels for songs in playlists
 	ArrayList<JPanel> subSongPanels;
@@ -234,11 +235,12 @@ public class CoolMusicPlayerGUI extends JFrame {
 		qScroll.setPreferredSize(new Dimension(1460,600));
 		
 		//play queue
-		JPanel playQueueButtonPanel = new JPanel();
+		playQueueButtonPanel = new JPanel();
+		playQueueButtonPanel.setPreferredSize(new Dimension(270,50));
 	    JButton playQueueButton = new JButton("Play Queue");
 	    playQueueButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 	    playQueueButtonPanel.add(playQueueButton);
-	    panelQueue.add(playQueueButtonPanel,gbc3,-1);
+	    panelQueue.add(playQueueButtonPanel,gbc2,-1);
 
 		//getQueueSong
 		queuePanels = new ArrayList<JPanel>();
@@ -374,6 +376,8 @@ public class CoolMusicPlayerGUI extends JFrame {
 				SwingUtilities.invokeLater(new Runnable() {
 					public void run() {
 						music.playQueue();
+						panelQueue.remove(queuePanels.get(0));
+				    	queuePanels.remove(0);
 					}
 				});
 			}
@@ -454,6 +458,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 		    	
 		    	panelQueue.removeAll();
 		    	queuePanels = new ArrayList<JPanel>();
+		    	panelQueue.add(playQueueButtonPanel,gbc2,-1);
 		    	panelQueue.add(new JPanel(),gbc3,-1);
 		    	validate();
 		        repaint();
@@ -896,6 +901,23 @@ public class CoolMusicPlayerGUI extends JFrame {
 	private void playPlaylist(int pIndex)
 	{
 		music.playPlaylist(pIndex);
+		
+		queuePanels.clear();
+		panelQueue.removeAll();
+		
+		panelQueue.add(playQueueButtonPanel,gbc2,-1);
+		
+		int i = 0;
+		Song tempQ = music.getQueueSong(i);
+		while(tempQ != null)
+		{
+			queuePanels.add(createQueuePanel(tempQ));
+			panelQueue.add(queuePanels.get(i),gbc2,-1);
+			i++;
+			tempQ = music.getQueueSong(i);
+		}
+		
+		panelQueue.add(new JPanel(),gbc3,-1);
 	}
 	
 	/** Adds song to playlist, creates playlist if it doesn't exist
