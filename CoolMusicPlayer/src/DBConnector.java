@@ -312,8 +312,8 @@ public class DBConnector {
 		}
 	}
 	
-	public boolean removeSongs(int sID) {
-		return false;
+	public void removeSong(int sID) {
+		return;
 	}
 	
 	public void removeFromPlaylist(int pID, int sID) {
