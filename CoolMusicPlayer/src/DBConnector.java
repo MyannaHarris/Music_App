@@ -287,13 +287,8 @@ public class DBConnector {
 			stmt.setInt(1, maxID);
 			stmt.setString(2, playlist);
 			stmt.execute();
-			if(this.addToPlaylist(maxID, sID)) {
-				return maxID;
-			}
-			else {
-				maxID = 0;
-				return maxID;
-			}
+			this.addToPlaylist(maxID, sID);
+			return maxID;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
