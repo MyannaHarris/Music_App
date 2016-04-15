@@ -75,6 +75,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 	
 	//Song object for actions
 	Song currSong;
+	JLabel songInfoLabel;
 	
 	/** Constructor
 	  * @pre called
@@ -282,7 +283,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 	    addSongButtonPanel.add(addSongButton);
 	    
 	    //Song info label
-	    JLabel songInfoLabel = new JLabel("Song - Artist - Album");
+	    songInfoLabel = new JLabel("Song - Artist - Album");
 	    songInfoLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 	    
 	    //Song time label
@@ -377,6 +378,9 @@ public class CoolMusicPlayerGUI extends JFrame {
 					public void run() {
 						if(queuePanels.size()>0)
 						{
+							Song s = music.getQueueSong(0);
+							int sID = s.getID();
+							updatePlay(sID);
 							music.playQueue();
 							panelQueue.remove(queuePanels.get(0));
 					    	queuePanels.remove(0);
@@ -1254,6 +1258,9 @@ public class CoolMusicPlayerGUI extends JFrame {
 		{
 			if (!music.playSong(sIndex))
 				throw new FailException("Song not played");
+			
+			int sID = music.getSong(sIndex).getID();
+			updatePlay(sID);
 		}
 		catch (FailException e)
 		{
@@ -1266,10 +1273,11 @@ public class CoolMusicPlayerGUI extends JFrame {
 	  * @post New song's info shown on app
 	  * @param ID - song ID
 	  * */
-	private void updatePlay(int ID)
+	private void updatePlay(int sID)
 	{
-		int sIndex = 0;
-		playSong(sIndex);
+		Song s = music.getSongInfo(sID);
+		songInfoLabel.setText(s.getName() + " - " + s.getArtist()
+				+ " - " + s.getAlbum());
 	}
 	
 	/** Creates and shows pop-up of selected song's info
