@@ -49,7 +49,7 @@ public class Music {
 					if(oldId == id)
 					{
 						int sId = result.getInt(3);
-						addToPlaylist(pIndex, sId);
+						listPlaylists.get(pIndex).addSong(sId);
 					}
 					else
 					{
