@@ -8,6 +8,7 @@
  */
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.*;
 
 public class Music {
@@ -28,32 +29,76 @@ public class Music {
 	{
 		db = new DBConnector();
 		listPlaylists = new ArrayList<Playlist>();
-		listPlaylists = getAllPlaylist();
+		getAllPlaylist();
 		queue = new MusicQueue();
 		listSongs = new ArrayList<Song>();
-		listSongs = getAllSongs();
+		getAllSongs();
 		musicPlayer = new MusicPlayer();
 	}
 	
-	public ArrayList<Playlist> getAllPlaylist() {
+	public void getAllPlaylist() {
 		ResultSet result = db.getAllPlaylist();
 		if(result != null)
 		{
-			return new ArrayList<Playlist>();
+			try {
+				boolean cont = true;
+				int oldId = 0;
+				int pIndex = -1;
+				while(cont)
+				{
+					int id = result.getInt(1);
+					if(oldId == id)
+					{
+						int sId = result.getInt(3);
+						addToPlaylist(pIndex, sId);
+					}
+					else
+					{
+						pIndex++;
+						String name = result.getString(2);
+						int sId = result.getInt(3);
+						Playlist p = new Playlist(name,sId,id);
+						listPlaylists.add(p);
+					}
+					cont = result.next();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+		
 		//playlist id
 		//playlist name
 		//song id
-		return new ArrayList<Playlist>();
 	}
 	
-	public ArrayList<Song> getAllSongs() {
+	public void getAllSongs() {
 		ResultSet result = db.getAllSongs();
-		
 		if(result != null)
 		{
-			return new ArrayList<Song>();
+			try {
+				boolean cont = true;
+				while(cont)
+				{
+					int id = result.getInt(1);
+					String n = result.getString(2);
+					String g = result.getString(3);
+					String p = result.getString(4);
+					String art = result.getString(5);
+					String artD = result.getString(6);
+					String al = result.getString(7);
+					String alD = result.getString(8);
+					Song s = new Song(n,al,art,artD,alD,g,id,p);
+					listSongs.add(s);
+					cont = result.next();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+
 		//song id
 		//song name
 		//genre
@@ -62,7 +107,6 @@ public class Music {
 		//artist desc
 		//album name
 		//album desc
-		return new ArrayList<Song>();
 	}
 	
 	/** Plays the current song if paused, else does nothing
