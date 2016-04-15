@@ -1212,9 +1212,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 	{
 		try
 		{
-			if (music.playSong(sIndex))
-				playQueue();
-			else
+			if (!music.playSong(sIndex))
 				throw new FailException("Song not played");
 		}
 		catch (FailException e)
