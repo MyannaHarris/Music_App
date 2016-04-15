@@ -362,13 +362,13 @@ public class CoolMusicPlayerGUI extends JFrame {
 						{
 							int sID = s.getID();
 							updatePlay(sID);
-							music.skip();
 							panelQueue.remove(queuePanels.get(0));
 					    	queuePanels.remove(0);
 					    	validate();
 					        repaint();
 					        panelQueue.updateUI();
 						}
+						music.skip();
 					}
 				});
 			}
@@ -393,13 +393,13 @@ public class CoolMusicPlayerGUI extends JFrame {
 							Song s = music.getQueueSong(0);
 							int sID = s.getID();
 							updatePlay(sID);
-							music.playQueue();
 							panelQueue.remove(queuePanels.get(0));
 					    	queuePanels.remove(0);
 					    	validate();
 					        repaint();
 					        panelQueue.updateUI();
 						}
+						music.playQueue();
 					}
 				});
 			}
