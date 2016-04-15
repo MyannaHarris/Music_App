@@ -56,12 +56,14 @@ public class MusicPlayer {
     	if (clip != null) {
     		if (clip.isRunning()) {
     			clip.stop();
+    			clip = null;
     			currSong = false;
     		}
     	}
     	try {
     		loadClip(new File(path));
     		currSong = true;
+			clip.setFramePosition(0);
     		clip.start();
     	} catch (LineUnavailableException e) {
     		// TODO Auto-generated catch block

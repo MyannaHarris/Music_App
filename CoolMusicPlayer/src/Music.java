@@ -170,10 +170,7 @@ public class Music {
 	  * */
 	public void playQueue()
 	{
-		if(!musicPlayer.isPlaying())
-		{
-			skip();
-		}
+		skip();
 	}
 	
 	/** Plays playlist by adding it to the queue
