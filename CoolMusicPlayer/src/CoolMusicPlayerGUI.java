@@ -375,9 +375,15 @@ public class CoolMusicPlayerGUI extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				SwingUtilities.invokeLater(new Runnable() {
 					public void run() {
-						music.playQueue();
-						panelQueue.remove(queuePanels.get(0));
-				    	queuePanels.remove(0);
+						if(queuePanels.size()>0)
+						{
+							music.playQueue();
+							panelQueue.remove(queuePanels.get(0));
+					    	queuePanels.remove(0);
+					    	validate();
+					        repaint();
+					        panelQueue.updateUI();
+						}
 					}
 				});
 			}
