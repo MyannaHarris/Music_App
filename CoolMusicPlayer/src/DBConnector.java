@@ -207,7 +207,7 @@ public class DBConnector {
 	
 	public String getArtistDesc(String artist) {
 		try {
-			String artDesc;
+			String artDesc = "";
 			Statement s2 = conn.createStatement();
 			s2.execute("SELECT artist_desc FROM Artist WHERE artist_name = " + "'" + artist + "'");
 			ResultSet rs2 = s2.getResultSet();
