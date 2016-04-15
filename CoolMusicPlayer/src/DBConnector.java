@@ -318,9 +318,9 @@ public class DBConnector {
 	
 	public void removeFromPlaylist(int pID, int sID) {
 		try {
-			String query = " delete from Playlist_assignment where " + "playlist_id=" + pID + " song_id=" + "?";
+			String query = " delete from Playlist_assignment where song_id=" + "?";
 			PreparedStatement stmt = conn.prepareStatement(query);
-	    	stmt.setInt(1, pID);
+	    	stmt.setInt(1, sID);
 	    	stmt.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
