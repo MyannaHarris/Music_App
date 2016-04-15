@@ -263,6 +263,7 @@ public class DBConnector {
 			stmt.setInt(2, pID);
 			stmt.setInt(3, sID);
 			stmt.setString(4, songName);
+			stmt.execute();
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
