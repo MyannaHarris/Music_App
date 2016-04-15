@@ -452,6 +452,12 @@ public class CoolMusicPlayerGUI extends JFrame {
 		    		}
 		    	}
 		    	
+		    	panelQueue.removeAll();
+		    	queuePanels = new ArrayList<JPanel>();
+		    	panelQueue.add(new JPanel(),gbc3,-1);
+		    	validate();
+		        repaint();
+		        panelQueue.updateUI();
 		    	playSong(i);
 		    }  
 		});
@@ -571,7 +577,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 		    	for(int k=0; k<queuePanels.size(); k++)
 		    	{
 		    		Component[] listC = queuePanels.get(k).getComponents();
-		    		if(listC[6] == e.getComponent())
+		    		if(listC[4] == e.getComponent())
 		    		{
 		    			i=k;
 		    			break;
@@ -590,12 +596,13 @@ public class CoolMusicPlayerGUI extends JFrame {
 		    	for(int k=0; k<queuePanels.size(); k++)
 		    	{
 		    		Component[] listC = queuePanels.get(k).getComponents();
-		    		if(listC[7] == e.getComponent())
+		    		if(listC[5] == e.getComponent())
 		    		{
 		    			i=k;
 		    			break;
 		    		}
 		    	}
+		    	
 		    	panelQueue.remove(queuePanels.get(i));
 		    	queuePanels.remove(i);
 		    	validate();
@@ -710,6 +717,12 @@ public class CoolMusicPlayerGUI extends JFrame {
 		    		}
 		    	}
 		    	
+		    	panelQueue.removeAll();
+		    	queuePanels = new ArrayList<JPanel>();
+		    	panelQueue.add(new JPanel(),gbc3,-1);
+		    	validate();
+		        repaint();
+		        panelQueue.updateUI();
 		    	playPlaylist(i);
 		    }  
 		});
@@ -873,15 +886,6 @@ public class CoolMusicPlayerGUI extends JFrame {
 	private String getAlbumDesc(String aName)
 	{
 		return music.checkAlbumDesc(aName);
-	}
-	
-	/** Plays the queue
-	  * @pre User hits play on queue
-	  * @post 1st song in queue is playing
-	  * */
-	private void playQueue()
-	{
-		music.playQueue();
 	}
 	
 	/** Plays playlist
@@ -1303,7 +1307,8 @@ public class CoolMusicPlayerGUI extends JFrame {
 						Component[] listC = panelQueue.getComponents();
 						panelQueue.remove(listC[listC.length-1]);
 						
-						queuePanels.add(createSongPanel(currSong));
+						
+						queuePanels.add(createQueuePanel(currSong));
 						panelQueue.add(queuePanels.get(queuePanels.size()-1),gbc2, -1);
 
 						panelQueue.add(new JPanel(),gbc3,-1);

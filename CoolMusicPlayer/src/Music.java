@@ -323,6 +323,7 @@ public class Music {
 	  * */
 	public boolean playSong(int sIndex)
 	{
+		musicPlayer.play(listSongs.get(sIndex).getPath());
 		emptyQueue();
 		addToQueue(sIndex);
 		playQueue();
