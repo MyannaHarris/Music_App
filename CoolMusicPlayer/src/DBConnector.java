@@ -279,7 +279,7 @@ public class DBConnector {
 			s2.execute("SELECT MAX(playlist_id) FROM Playlist");
 			ResultSet rs2 = s2.getResultSet();
 			if (rs2.next() ) {
-				maxID = rs2.getInt(1);
+				maxID = rs2.getInt("MAX(playlist_id)");
 			}
 			maxID++;
 			String query = " insert into Playlist (playlist_id, playlist_name)" + " values(?, ?)";
