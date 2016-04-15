@@ -70,7 +70,7 @@ public class DBConnector {
 		try {
 			int maxID = 1;
 			Statement s2 = conn.createStatement();
-			s2.executeQuery("SELECT MAX(album_id) FROM album");
+			s2.executeQuery("SELECT MAX(album_id) FROM Album");
 			ResultSet rs2 = s2.getResultSet();
 			if (rs2.next() ) {
 				maxID = rs2.getInt(1);
@@ -130,15 +130,13 @@ public class DBConnector {
 			Statement s3 = conn.createStatement();
 			s3.executeQuery("SELECT artist_name FROM Artist WHERE artist_name = " + "'" + artist + "'");
 			ResultSet rs3 = s3.getResultSet();
-			rs3.next();
-			if(!(rs3.getString("artist_name").equals(artist))) {
+			if(!(rs3.next())) {
 				this.addArtist(artist, artDesc);
 			}
 			Statement s4 = conn.createStatement();
 			s4.executeQuery("SELECT album_name FROM Album WHERE album_name = " + "'" + album + "'");
 			ResultSet rs4 = s4.getResultSet();
-			rs4.next();
-			if(!(rs4.getString("album_name").equals(album))) {
+			if(!(rs4.next())) {
 				this.addAlbum(album, albDesc);
 			}
 			this.addContributingArtistsDB(artist, song, maxID);
