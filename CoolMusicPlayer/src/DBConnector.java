@@ -310,7 +310,22 @@ public class DBConnector {
 	}
 	
 	public void removeSong(int sID) {
-		return;
+		try {
+			String query = " delete from Song where song_id=" + "?";
+			PreparedStatement stmt = conn.prepareStatement(query);
+	    	stmt.setInt(1, sID);
+	    	stmt.execute();
+			String query2 = " delete from Song_Location where song_id=" + "?";
+			PreparedStatement stmt2 = conn.prepareStatement(query2);
+			stmt2.setInt(1, sID);
+			stmt2.execute();
+			String query3 = " delete from Contributing_Artists where song_id=" + "?";
+			PreparedStatement stmt3 = conn.prepareStatement(query3);
+			stmt3.setInt(1, sID);
+			stmt3.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void removeFromPlaylist(int pID, int sID) {
