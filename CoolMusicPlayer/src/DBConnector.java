@@ -247,17 +247,17 @@ public class DBConnector {
 		try {
 			int maxID = 1;
 			Statement s2 = conn.createStatement();
-			s2.execute("SELECT MAX(assignment_id) FROM Playlist_assignment");
+			s2.executeQuery("SELECT MAX(assignment_id) FROM Playlist_assignment");
 			ResultSet rs2 = s2.getResultSet();
 			if (rs2.next() ) {
 				maxID = rs2.getInt(1);
 			}
 			maxID++;
 			Statement s3 = conn.createStatement();
-			s3.execute("SELECT song_name FROM Song WHERE song_id = " + sID);
+			s3.executeQuery("SELECT song_name FROM Song WHERE song_id = " + sID);
 			ResultSet rs3 = s3.getResultSet();
 			rs3.next();
-			String songName = rs3.getString(1);
+			String songName = rs3.getString("song_name");
 			String query = " insert into Playlist_assignment (assignment_id, playlist_id, song_id, song_name)" + " values(?, ?, ?, ?)";
 			PreparedStatement stmt = conn.prepareStatement(query);
 			stmt.setInt(1, maxID);
