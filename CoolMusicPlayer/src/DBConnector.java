@@ -214,10 +214,26 @@ public class DBConnector {
 	}
 	
 	public ResultSet getAllSongs() {
+		try {
+			Statement s2 = conn.createStatement();
+			s2.execute("SELECT song_id, song_name, genre_name, song_path, artist_name, artist_desc, album_name, album_desc FROM Song natural join Artist natural join Album natural join Contributing_Artists natural join Collaborative_Credit natural join Song_Location");
+			ResultSet resultAllSongs = s2.getResultSet();
+			return resultAllSongs;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 	
-	public ResultSet getAllPlaylist () {
+	public ResultSet getAllPlaylist() {
+		try {
+			Statement s2 = conn.createStatement();
+			s2.execute("SELECT playlist_id, playlist_name, song_id FROM Playlist natural join Song natural join Playlist_assignment");
+			ResultSet resultAllPlaylist = s2.getResultSet();
+			return resultAllPlaylist;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 	
