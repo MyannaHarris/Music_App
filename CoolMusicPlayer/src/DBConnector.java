@@ -130,12 +130,14 @@ public class DBConnector {
 			Statement s3 = conn.createStatement();
 			s3.executeQuery("SELECT artist_name FROM Artist WHERE artist_name = " + "'" + artist + "'");
 			ResultSet rs3 = s3.getResultSet();
+			rs3.next();
 			if(rs3.getString("artist_name") != artist) {
 				this.addArtist(artist, artDesc);
 			}
 			Statement s4 = conn.createStatement();
 			s4.executeQuery("SELECT album_name FROM Album WHERE album_name = " + "'" + album + "'");
 			ResultSet rs4 = s4.getResultSet();
+			rs4.next();
 			if(rs4.getString("album_name") != album) {
 				this.addAlbum(album, albDesc);
 			}
@@ -154,6 +156,7 @@ public class DBConnector {
 			Statement s2 = conn.createStatement();
 			s2.executeQuery("SELECT artist_id FROM Artist WHERE artist_name = " + "'" + artist + "'");
 			ResultSet rs2 = s2.getResultSet();
+			rs2.next();
 			int aID = rs2.getInt(1);
 			String query = " insert into Contributing_Artists (artist_id, song_id)" + " values(?, ?)";
 			PreparedStatement stmt = conn.prepareStatement(query);
@@ -172,6 +175,7 @@ public class DBConnector {
 			Statement s2 = conn.createStatement();
 			s2.executeQuery("SELECT album_id FROM Album WHERE album_name = " + "'" + album + "'");
 			ResultSet rs2 = s2.getResultSet();
+			rs2.next();
 			int aID = rs2.getInt(1);
 			String query = " insert into Song_Location (song_id, album_id)" + " values(?, ?)";
 			PreparedStatement stmt = conn.prepareStatement(query);
@@ -191,6 +195,7 @@ public class DBConnector {
 			Statement s2 = conn.createStatement();
 			s2.executeQuery("SELECT album_desc FROM Album WHERE album_name = " + "'" + album + "'");
 			ResultSet rs2 = s2.getResultSet();
+			rs2.next();
 			albDesc = rs2.getString(1);
 			return albDesc;
 		} catch (SQLException e) {
@@ -205,6 +210,7 @@ public class DBConnector {
 			Statement s2 = conn.createStatement();
 			s2.execute("SELECT artist_desc FROM Artist WHERE artist_name = " + "'" + artist + "'");
 			ResultSet rs2 = s2.getResultSet();
+			rs2.next();
 			artDesc = rs2.getString(1);
 			return artDesc;
 		} catch (SQLException e) {
