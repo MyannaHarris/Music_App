@@ -70,7 +70,7 @@ public class DBConnector {
 		try {
 			int maxID = 1;
 			Statement s2 = conn.createStatement();
-			s2.execute("SELECT MAX(album_id) FROM album");
+			s2.executeQuery("SELECT MAX(album_id) FROM album");
 			ResultSet rs2 = s2.getResultSet();
 			if (rs2.next() ) {
 				maxID = rs2.getInt(1);
@@ -92,7 +92,7 @@ public class DBConnector {
 		try {
 			int maxID = 1;
 			Statement s2 = conn.createStatement();
-			s2.execute("SELECT MAX(artist_id) FROM Artist");
+			s2.executeQuery("SELECT MAX(artist_id) FROM Artist");
 			ResultSet rs2 = s2.getResultSet();
 			if (rs2.next() ) {
 				maxID = rs2.getInt(1);
@@ -114,7 +114,7 @@ public class DBConnector {
 		try {
 			int maxID = 1;
 			Statement s2 = conn.createStatement();
-			s2.execute("SELECT MAX(song_id) FROM Song");
+			s2.executeQuery("SELECT MAX(song_id) FROM Song");
 			ResultSet rs2 = s2.getResultSet();
 			if (rs2.next() ) {
 				maxID = rs2.getInt(1);
@@ -128,13 +128,13 @@ public class DBConnector {
 			stmt.setString(4,  path);
 			stmt.execute();
 			Statement s3 = conn.createStatement();
-			s3.execute("SELECT artist_name FROM Artist WHERE artist_name = " + "'" + artist + "'");
+			s3.executeQuery("SELECT artist_name FROM Artist WHERE artist_name = " + "'" + artist + "'");
 			ResultSet rs3 = s3.getResultSet();
 			if(rs3.getString("artist_name") != artist) {
 				this.addArtist(artist, artDesc);
 			}
 			Statement s4 = conn.createStatement();
-			s4.execute("SELECT album_name FROM Album WHERE album_name = " + "'" + album + "'");
+			s4.executeQuery("SELECT album_name FROM Album WHERE album_name = " + "'" + album + "'");
 			ResultSet rs4 = s4.getResultSet();
 			if(rs4.getString("album_name") != album) {
 				this.addAlbum(album, albDesc);
@@ -152,7 +152,7 @@ public class DBConnector {
 	public boolean addContributingArtistsDB(String artist, String song, int sID){
 		try {
 			Statement s2 = conn.createStatement();
-			s2.execute("SELECT artist_id FROM Artist WHERE artist_name = " + "'" + artist + "'");
+			s2.executeQuery("SELECT artist_id FROM Artist WHERE artist_name = " + "'" + artist + "'");
 			ResultSet rs2 = s2.getResultSet();
 			int aID = rs2.getInt(1);
 			String query = " insert into Contributing_Artists (artist_id, song_id)" + " values(?, ?)";
@@ -170,7 +170,7 @@ public class DBConnector {
 	public boolean addSongLocationDB(String song, String album, int sID) {
 		try {
 			Statement s2 = conn.createStatement();
-			s2.execute("SELECT album_id FROM Album WHERE album_name = " + "'" + album + "'");
+			s2.executeQuery("SELECT album_id FROM Album WHERE album_name = " + "'" + album + "'");
 			ResultSet rs2 = s2.getResultSet();
 			int aID = rs2.getInt(1);
 			String query = " insert into Song_Location (song_id, album_id)" + " values(?, ?)";
@@ -189,7 +189,7 @@ public class DBConnector {
 		try {
 			String albDesc;
 			Statement s2 = conn.createStatement();
-			s2.execute("SELECT album_desc FROM Album WHERE album_name = " + "'" + album + "'");
+			s2.executeQuery("SELECT album_desc FROM Album WHERE album_name = " + "'" + album + "'");
 			ResultSet rs2 = s2.getResultSet();
 			albDesc = rs2.getString(1);
 			return albDesc;
