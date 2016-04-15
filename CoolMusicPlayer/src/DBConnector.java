@@ -146,9 +146,8 @@ public class DBConnector {
 			return maxID;
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			return 0;
 		}
+		return 0;
 	}
 	
 	public boolean addContributingArtistsDB(String artist, String song, int sID){
@@ -165,9 +164,8 @@ public class DBConnector {
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			return false;
 		}
+		return false;
 	}
 	
 	public boolean addSongLocationDB(String song, String album, int sID) {
@@ -184,9 +182,8 @@ public class DBConnector {
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			return false;
 		}
+		return false;
 	}
 	
 	public String getAlbumDesc(String album) {
@@ -269,9 +266,8 @@ public class DBConnector {
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			return false;
 		}
+		return false;
 	}
 	
 	public int addPlaylist(String playlist, int sID) {
@@ -293,9 +289,8 @@ public class DBConnector {
 			return maxID;
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			return 0;
 		}
+		return 0;
 	}
 	
 	public void removePlaylist(int pID) {
