@@ -245,7 +245,7 @@ public class Music {
 	public String checkArtistDesc(String aName)
 	{
 		String description = "";
-		description = db.getAlbumDesc(aName);
+		description = db.getArtistDesc(aName);
 		return description;
 	}
 	
@@ -258,7 +258,7 @@ public class Music {
 	public String checkAlbumDesc(String aName)
 	{
 		String description = "";
-		description = db.getArtistDesc(aName);
+		description = db.getAlbumDesc(aName);
 		return description;
 	}
 	
