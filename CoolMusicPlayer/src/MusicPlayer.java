@@ -41,7 +41,7 @@ public class MusicPlayer {
     
     public void play() {
     	if (clip != null) {
-    		if (currSong) {
+    		if (currSong && !clip.isRunning()) {
     			if (currFrame < clip.getFrameLength()) {
     				clip.setFramePosition(currFrame);
     			} else {

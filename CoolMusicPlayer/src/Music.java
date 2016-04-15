@@ -160,6 +160,7 @@ public class Music {
 			musicPlayer.play(path);
 		}
 		else {
+			System.out.println("stop");
 			musicPlayer.stop();
 		}
 	}
