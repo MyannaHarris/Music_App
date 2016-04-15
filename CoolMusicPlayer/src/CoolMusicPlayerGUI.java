@@ -358,14 +358,17 @@ public class CoolMusicPlayerGUI extends JFrame {
 					public void run() {
 						
 						Song s = music.getQueueSong(0);
-						int sID = s.getID();
-						updatePlay(sID);
-						music.skip();
-						panelQueue.remove(queuePanels.get(0));
-				    	queuePanels.remove(0);
-				    	validate();
-				        repaint();
-				        panelQueue.updateUI();
+						if (s != null)
+						{
+							int sID = s.getID();
+							updatePlay(sID);
+							music.skip();
+							panelQueue.remove(queuePanels.get(0));
+					    	queuePanels.remove(0);
+					    	validate();
+					        repaint();
+					        panelQueue.updateUI();
+						}
 					}
 				});
 			}
