@@ -1137,6 +1137,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 				}  
 		    	else
 		    	{
+		    		artDescField.setText("");
 		    		artDescField.setEditable(true);
 		    	}
 			}
@@ -1153,6 +1154,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 				}  
 		    	else
 		    	{
+		    		artDescField.setText("");
 		    		artDescField.setEditable(true);
 		    	}
 			}
@@ -1169,6 +1171,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 				}  
 		    	else
 		    	{
+		    		artDescField.setText("");
 		    		artDescField.setEditable(true);
 		    	}
 			}
@@ -1187,6 +1190,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 				}  
 		    	else
 		    	{
+		    		alDescField.setText("");
 		    		alDescField.setEditable(true);
 		    	}
 			}
@@ -1202,6 +1206,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 				}  
 		    	else
 		    	{
+		    		alDescField.setText("");
 		    		alDescField.setEditable(true);
 		    	}
 			}
@@ -1217,6 +1222,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 				}  
 		    	else
 		    	{
+		    		alDescField.setText("");
 		    		alDescField.setEditable(true);
 		    	}
 			}
