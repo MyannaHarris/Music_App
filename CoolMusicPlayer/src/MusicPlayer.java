@@ -58,20 +58,20 @@ public class MusicPlayer {
     			clip.stop();
     			currSong = false;
     		}
-    		try {
-    			loadClip(new File(path));
-    			currSong = true;
-    			clip.start();
-    		} catch (LineUnavailableException e) {
-    			// TODO Auto-generated catch block
-    			e.printStackTrace();
-    		} catch (IOException e) {
-    			// TODO Auto-generated catch block
-    			e.printStackTrace();
-    		} catch (UnsupportedAudioFileException e) {
-    			// TODO Auto-generated catch block
-    			e.printStackTrace();
-    		}
+    	}
+    	try {
+    		loadClip(new File(path));
+    		currSong = true;
+    		clip.start();
+    	} catch (LineUnavailableException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	} catch (IOException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	} catch (UnsupportedAudioFileException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
     	}
     }
     
