@@ -154,7 +154,7 @@ public class DBConnector {
 			s2.executeQuery("SELECT artist_id FROM Artist WHERE artist_name = " + "'" + artist + "'");
 			ResultSet rs2 = s2.getResultSet();
 			rs2.next();
-			int aID = rs2.getInt(1);
+			int aID = rs2.getInt("artist_name");
 			String query = " insert into Contributing_Artists (artist_id, song_id)" + " values(?, ?)";
 			PreparedStatement stmt = conn.prepareStatement(query);
 			stmt.setInt(1, aID);
@@ -172,7 +172,7 @@ public class DBConnector {
 			s2.executeQuery("SELECT album_id FROM Album WHERE album_name = " + "'" + album + "'");
 			ResultSet rs2 = s2.getResultSet();
 			rs2.next();
-			int aID = rs2.getInt(1);
+			int aID = rs2.getInt("album_name");
 			String query = " insert into Song_Location (song_id, album_id)" + " values(?, ?)";
 			PreparedStatement stmt = conn.prepareStatement(query);
 			stmt.setInt(1, sID);
@@ -191,7 +191,7 @@ public class DBConnector {
 			s2.executeQuery("SELECT album_desc FROM Album WHERE album_name = " + "'" + album + "'");
 			ResultSet rs2 = s2.getResultSet();
 			if (rs2.next()) {
-				albDesc = rs2.getString("album_name");
+				albDesc = rs2.getString(1);
 			}
 			return albDesc;
 		} catch (SQLException e) {
@@ -207,7 +207,7 @@ public class DBConnector {
 			s2.execute("SELECT artist_desc FROM Artist WHERE artist_name = " + "'" + artist + "'");
 			ResultSet rs2 = s2.getResultSet();
 			if (rs2.next()) {
-				artDesc = rs2.getString("artist_name");
+				artDesc = rs2.getString(1);
 			}
 			return artDesc;
 		} catch (SQLException e) {
