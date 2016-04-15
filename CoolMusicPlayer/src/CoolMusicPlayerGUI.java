@@ -14,6 +14,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -378,7 +379,14 @@ public class CoolMusicPlayerGUI extends JFrame {
 			}
         });
 	    
-	    setSize(1500,800);
+	    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	    double width = screenSize.getWidth();
+	    double height = screenSize.getHeight();
+	    
+	    if(width < 1500 || height < 800)
+	    	setSize((int)width,(int)height);
+	    else
+	    	setSize(1500,800);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 	}
