@@ -56,7 +56,6 @@ public class MusicPlayer {
     	if (clip != null) {
     		if (clip.isRunning()) {
     			clip.stop();
-    			clip = null;
     			currSong = false;
     		}
     	}
@@ -101,5 +100,9 @@ public class MusicPlayer {
 
         AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
 
+        AudioFormat format = audioStream.getFormat();
+        DataLine.Info info = new DataLine.Info(Clip.class, format);
+        this.clip = (Clip) AudioSystem.getLine(info);
+        this.clip.open(audioStream);
     }
 }
