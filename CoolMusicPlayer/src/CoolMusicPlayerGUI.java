@@ -21,9 +21,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineEvent;
-import javax.sound.sampled.LineListener;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -262,8 +259,6 @@ public class CoolMusicPlayerGUI extends JFrame {
 		panelQueue.add(new JPanel(),gbc3,-1);
 		
 		panel3.add(qScroll);
-		
-		setQueueListener();
 	    
 	    
 	    //Music playing components
@@ -361,7 +356,19 @@ public class CoolMusicPlayerGUI extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				SwingUtilities.invokeLater(new Runnable() {
 					public void run() {
-						music.stop();
+						
+						Song s = music.getQueueSong(0);
+						if (s != null)
+						{
+							int sID = s.getID();
+							updatePlay(sID);
+							panelQueue.remove(queuePanels.get(0));
+					    	queuePanels.remove(0);
+					    	validate();
+					        repaint();
+					        panelQueue.updateUI();
+						}
+						music.skip();
 					}
 				});
 			}
@@ -934,34 +941,6 @@ public class CoolMusicPlayerGUI extends JFrame {
 		}
 		
 		panelQueue.add(new JPanel(),gbc3,-1);
-	}
-	
-	/** Plays playlist
-	  * @pre User hits play on playlist
-	  * @post Playlist added to queue and starts playing
-	  * @param pIndex - index of playlist to play
-	  * */
-	private void setQueueListener()
-	{
-		Clip c = music.getClip();
-
-		c.addLineListener(new LineListener() {
-			@Override
-			public void update(LineEvent event) {
-				Song s = music.getQueueSong(0);
-				if (s != null)
-				{
-					int sID = s.getID();
-					updatePlay(sID);
-					panelQueue.remove(queuePanels.get(0));
-			    	queuePanels.remove(0);
-			    	validate();
-			        repaint();
-			        panelQueue.updateUI();
-				}
-				music.skip();
-			}
-        });
 	}
 	
 	/** Adds song to playlist, creates playlist if it doesn't exist
