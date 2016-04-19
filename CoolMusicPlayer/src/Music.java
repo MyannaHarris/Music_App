@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
+import javax.sound.sampled.Clip;
+
 public class Music {
 	
 	// Variables
@@ -106,6 +108,10 @@ public class Music {
 		//album desc
 	}
 	
+	public Clip getClip() {
+		return musicPlayer.getClip():
+	}
+	
 	/** Plays the current song if paused, else does nothing
 	  * @pre User hits play button
 	  * @post Plays current song if paused, else does nothing
@@ -159,10 +165,9 @@ public class Music {
 			}
 			musicPlayer.play(path);
 		}
-		else {
-			System.out.println("stop");
-			musicPlayer.stop();
-		}
+	}
+	public void stop() {
+		musicPlayer.stop();
 	}
 	
 	/** Plays the queue using MusicPlayer object

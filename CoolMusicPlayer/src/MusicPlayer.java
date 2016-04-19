@@ -92,15 +92,14 @@ public class MusicPlayer {
     	}
     	return false;
     }
+    
+    public Clip getClip() {
+    	return clip;
+    }
 
     protected void loadClip(File audioFile) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
 
         AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
-
-        AudioFormat format = audioStream.getFormat();
-        DataLine.Info info = new DataLine.Info(Clip.class, format);
-        this.clip = (Clip) AudioSystem.getLine(info);
-        this.clip.open(audioStream);
 
     }
 }
