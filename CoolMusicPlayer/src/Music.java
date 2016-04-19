@@ -109,7 +109,7 @@ public class Music {
 	}
 	
 	public Clip getClip() {
-		return musicPlayer.getClip():
+		return musicPlayer.getClip();
 	}
 	
 	/** Plays the current song if paused, else does nothing
