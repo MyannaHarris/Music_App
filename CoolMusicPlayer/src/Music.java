@@ -211,6 +211,10 @@ public class Music {
 		{
 			int s = t%60;
 			int m = (int) t/60;
+			if (s < 10)
+			{
+				return m+":0"+s;
+			}
 			return m+":"+s;
 		}
 	}
