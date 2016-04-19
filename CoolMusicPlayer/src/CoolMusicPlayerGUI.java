@@ -397,11 +397,12 @@ public class CoolMusicPlayerGUI extends JFrame {
 					        panelQueue.updateUI();
 						}
 						
-						if(!playingListener)
+						setQueueListener();
+						/*if(!playingListener)
 						{
 							setQueueListener();
 							playingListener = true;
-						}
+						}*/
 					}
 				});
 			}
@@ -924,11 +925,12 @@ public class CoolMusicPlayerGUI extends JFrame {
 	private void playPlaylist(int pIndex)
 	{
 		music.playPlaylist(pIndex);
-		if(!playingListener)
+		setQueueListener();
+		/*if(!playingListener)
 		{
 			setQueueListener();
 			playingListener = true;
-		}
+		}*/
 
 		updatePlay(music.getPlaylist(pIndex).getList().get(0));
 		
@@ -967,10 +969,9 @@ public class CoolMusicPlayerGUI extends JFrame {
 					LineEvent.Type type = event.getType();
 					 
 				    if (type == LineEvent.Type.STOP) {
-				    	System.out.println("1");
 				    	Song s = music.getQueueSong(0);
 						if (s != null)
-						{System.out.println("2");
+						{
 							int sID = s.getID();
 							updatePlay(sID);
 							panelQueue.remove(queuePanels.get(0));
@@ -1323,11 +1324,12 @@ public class CoolMusicPlayerGUI extends JFrame {
 			
 			int sID = music.getSong(sIndex).getID();
 			updatePlay(sID);
-			if(!playingListener)
+			setQueueListener();
+			/*if(!playingListener)
 			{
 				setQueueListener();
 				playingListener = true;
-			}
+			}*/
 		}
 		catch (FailException e)
 		{
