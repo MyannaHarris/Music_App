@@ -196,6 +196,25 @@ public class Music {
 		playQueue();
 	}
 	
+	/** Returns the length of song
+	  * @pre Song list exists
+	  * @post song object returned, or null if not exist
+	  * @param sIndex - index of song
+	  * @return listSongs.get(sIndex)
+	  * */
+	public String getTime()
+	{
+		int t = musicPlayer.getLength();
+		if (t == -1)
+			return "0:00";
+		else
+		{
+			int s = t%60;
+			int m = (int) t/60;
+			return m+":"+s;
+		}
+	}
+	
 	/** Returns the song object
 	  * @pre Song list exists
 	  * @post song object returned, or null if not exist
@@ -214,6 +233,12 @@ public class Music {
 		}
 	}
 	
+	/** Returns the song object
+	  * @pre Song list exists
+	  * @post song object returned, or null if not exist
+	  * @param id = song id
+	  * @return listSongs.get(i)
+	  * */
 	public Song getSongInfo (int id) {
 		for (int i=0;  i<listSongs.size(); i++) {
 			if (listSongs.get(i).getID() == id) {

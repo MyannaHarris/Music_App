@@ -80,6 +80,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 	//Song object for actions
 	Song currSong;
 	JLabel songInfoLabel;
+	JLabel timeLabel;
 	
 	/** Constructor
 	  * @pre called
@@ -293,7 +294,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 	    songInfoLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 	    
 	    //Song time label
-	    JLabel timeLabel = new JLabel("1:00");
+	    timeLabel = new JLabel("0:00");
 	    timeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 	    
 	    //Make grid 9 columns and 3 rows (2 for tabs)
@@ -1343,6 +1344,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 		Song s = music.getSongInfo(sID);
 		songInfoLabel.setText(s.getName() + " - " + s.getArtist()
 				+ " - " + s.getAlbum());
+		timeLabel.setText(music.getTime());
 	}
 	
 	/** Creates and shows pop-up of selected song's info
