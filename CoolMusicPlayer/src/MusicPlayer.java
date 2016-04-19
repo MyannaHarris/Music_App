@@ -95,6 +95,13 @@ public class MusicPlayer {
     public Clip getClip() {
     	return clip;
     }
+    
+    public int getLength() {
+    	if (clip!=null) {
+    		return (int) clip.getMicrosecondLength();
+    	}
+    	return -1;
+    }
 
     protected void loadClip(File audioFile) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
 
