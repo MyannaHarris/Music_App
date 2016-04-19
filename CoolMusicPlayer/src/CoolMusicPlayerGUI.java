@@ -948,18 +948,22 @@ public class CoolMusicPlayerGUI extends JFrame {
 		c.addLineListener(new LineListener() {
 			@Override
 			public void update(LineEvent event) {
-				Song s = music.getQueueSong(0);
-				if (s != null)
-				{
-					int sID = s.getID();
-					updatePlay(sID);
-					panelQueue.remove(queuePanels.get(0));
-			    	queuePanels.remove(0);
-			    	validate();
-			        repaint();
-			        panelQueue.updateUI();
-				}
-				music.skip();
+				LineEvent.Type type = event.getType();
+				 
+			    if (type == LineEvent.Type.STOP) {
+			    	Song s = music.getQueueSong(0);
+					if (s != null)
+					{
+						int sID = s.getID();
+						updatePlay(sID);
+						panelQueue.remove(queuePanels.get(0));
+				    	queuePanels.remove(0);
+				    	validate();
+				        repaint();
+				        panelQueue.updateUI();
+					}
+					music.skip();
+			    }
 			}
         });
 	}
