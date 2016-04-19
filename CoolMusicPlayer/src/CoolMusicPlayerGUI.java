@@ -64,6 +64,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 	ArrayList<JPanel> queuePanels;
 	JPanel panelQueue;
 	JPanel playQueueButtonPanel;
+	boolean playingListener;
 	
 	//list of panels for songs in playlists
 	ArrayList<JPanel> subSongPanels;
@@ -263,7 +264,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 		
 		panel3.add(qScroll);
 		
-		setQueueListener();
+		playingListener = false;
 	    
 	    
 	    //Music playing components
@@ -381,6 +382,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				SwingUtilities.invokeLater(new Runnable() {
 					public void run() {
+						
 						if(queuePanels.size()>0)
 						{
 							Song s = music.getQueueSong(0);
@@ -393,6 +395,12 @@ public class CoolMusicPlayerGUI extends JFrame {
 					        panelQueue.updateUI();
 						}
 						music.playQueue();
+						
+						if(!playingListener)
+						{
+							setQueueListener();
+							playingListener = true;
+						}
 					}
 				});
 			}
@@ -915,6 +923,11 @@ public class CoolMusicPlayerGUI extends JFrame {
 	private void playPlaylist(int pIndex)
 	{
 		music.playPlaylist(pIndex);
+		if(!playingListener)
+		{
+			setQueueListener();
+			playingListener = true;
+		}
 
 		updatePlay(music.getPlaylist(pIndex).getList().get(0));
 		
@@ -945,27 +958,30 @@ public class CoolMusicPlayerGUI extends JFrame {
 	{
 		Clip c = music.getClip();
 
-		c.addLineListener(new LineListener() {
-			@Override
-			public void update(LineEvent event) {
-				LineEvent.Type type = event.getType();
-				 
-			    if (type == LineEvent.Type.STOP) {
-			    	Song s = music.getQueueSong(0);
-					if (s != null)
-					{
-						int sID = s.getID();
-						updatePlay(sID);
-						panelQueue.remove(queuePanels.get(0));
-				    	queuePanels.remove(0);
-				    	validate();
-				        repaint();
-				        panelQueue.updateUI();
-					}
-					music.skip();
-			    }
-			}
-        });
+		if(c != null)
+		{
+			c.addLineListener(new LineListener() {
+				@Override
+				public void update(LineEvent event) {
+					LineEvent.Type type = event.getType();
+					 
+				    if (type == LineEvent.Type.STOP) {
+				    	Song s = music.getQueueSong(0);
+						if (s != null)
+						{
+							int sID = s.getID();
+							updatePlay(sID);
+							panelQueue.remove(queuePanels.get(0));
+					    	queuePanels.remove(0);
+					    	validate();
+					        repaint();
+					        panelQueue.updateUI();
+						}
+						music.skip();
+				    }
+				}
+	        });
+		}
 	}
 	
 	/** Adds song to playlist, creates playlist if it doesn't exist
@@ -1305,6 +1321,11 @@ public class CoolMusicPlayerGUI extends JFrame {
 			
 			int sID = music.getSong(sIndex).getID();
 			updatePlay(sID);
+			if(!playingListener)
+			{
+				setQueueListener();
+				playingListener = true;
+			}
 		}
 		catch (FailException e)
 		{
