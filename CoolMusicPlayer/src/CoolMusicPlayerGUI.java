@@ -967,9 +967,10 @@ public class CoolMusicPlayerGUI extends JFrame {
 					LineEvent.Type type = event.getType();
 					 
 				    if (type == LineEvent.Type.STOP) {
+				    	System.out.println("1");
 				    	Song s = music.getQueueSong(0);
 						if (s != null)
-						{
+						{System.out.println("2");
 							int sID = s.getID();
 							updatePlay(sID);
 							panelQueue.remove(queuePanels.get(0));
