@@ -981,6 +981,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 					        panelQueue.updateUI();
 						}
 						music.skip();
+						setQueueListener();
 				    }
 				}
 	        });
