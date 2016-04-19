@@ -66,6 +66,45 @@ public class DBConnector {
 		}
 	}
 	
+	public int addSongDB(String song, String genre, String path, String artist, String album, String artDesc, String albDesc) {
+		try {
+			int maxID = 1;
+			Statement s2 = conn.createStatement();
+			s2.executeQuery("SELECT MAX(song_id) FROM Song");
+			ResultSet rs2 = s2.getResultSet();
+			if (rs2.next() ) {
+				maxID = rs2.getInt(1);
+			}
+			maxID++;
+			String query = " insert into Song (song_id, song_name, genre_name, song_path)" + " values(?, ?, ?, ?)";
+			PreparedStatement stmt = conn.prepareStatement(query);
+			stmt.setInt(1, maxID);
+			stmt.setString(2, song);
+			stmt.setString(3, genre);
+			stmt.setString(4,  path);
+			stmt.execute();
+			Statement s3 = conn.createStatement();
+			s3.executeQuery("SELECT artist_name FROM Artist WHERE artist_name = " + "'" + artist + "'");
+			ResultSet rs3 = s3.getResultSet();
+			if(!(rs3.next())) {
+				this.addArtist(artist, artDesc);
+			}
+			Statement s4 = conn.createStatement();
+			s4.executeQuery("SELECT album_name FROM Album WHERE album_name = " + "'" + album + "'");
+			ResultSet rs4 = s4.getResultSet();
+			if(!(rs4.next())) {
+				this.addAlbum(album, albDesc);
+			}
+			this.addContributingArtistsDB(artist, song, maxID);
+			this.addSongLocationDB(song, album, maxID);
+			this.addCollaborativeCreditDB(artist, album);
+			return maxID;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
 	public void addAlbum(String album, String albDesc) {
 		try {
 			int maxID = 1;
@@ -108,45 +147,6 @@ public class DBConnector {
 			e.printStackTrace();
 		} finally {
 		}
-	}
-	
-	public int addSongDB(String song, String genre, String path, String artist, String album, String artDesc, String albDesc) {
-		try {
-			int maxID = 1;
-			Statement s2 = conn.createStatement();
-			s2.executeQuery("SELECT MAX(song_id) FROM Song");
-			ResultSet rs2 = s2.getResultSet();
-			if (rs2.next() ) {
-				maxID = rs2.getInt(1);
-			}
-			maxID++;
-			String query = " insert into Song (song_id, song_name, genre_name, song_path)" + " values(?, ?, ?, ?)";
-			PreparedStatement stmt = conn.prepareStatement(query);
-			stmt.setInt(1, maxID);
-			stmt.setString(2, song);
-			stmt.setString(3, genre);
-			stmt.setString(4,  path);
-			stmt.execute();
-			Statement s3 = conn.createStatement();
-			s3.executeQuery("SELECT artist_name FROM Artist WHERE artist_name = " + "'" + artist + "'");
-			ResultSet rs3 = s3.getResultSet();
-			if(!(rs3.next())) {
-				this.addArtist(artist, artDesc);
-			}
-			Statement s4 = conn.createStatement();
-			s4.executeQuery("SELECT album_name FROM Album WHERE album_name = " + "'" + album + "'");
-			ResultSet rs4 = s4.getResultSet();
-			if(!(rs4.next())) {
-				this.addAlbum(album, albDesc);
-			}
-			this.addContributingArtistsDB(artist, song, maxID);
-			this.addSongLocationDB(song, album, maxID);
-			this.addCollaborativeCreditDB(artist, album);
-			return maxID;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return 0;
 	}
 	
 	public boolean addContributingArtistsDB(String artist, String song, int sID){
@@ -193,22 +193,22 @@ public class DBConnector {
 			s2.executeQuery("SELECT artist_id FROM Artist WHERE artist_name = " + "'" + artist + "'");
 			ResultSet rs2 = s2.getResultSet();
 			int artID = 0;
-			if(!(rs2.next())) {
+			rs2.first();
+			if(rs2.first()) {
 				artID = rs2.getInt(1);
 			}
 			else {
-				System.out.println("returning false");
 				return false;
 			}
 			Statement s3 = conn.createStatement();
-			s2.executeQuery("SELECT album_id FROM Album WHERE album_name = " + "'" + album + "'");
+			s3.executeQuery("SELECT album_id FROM Album WHERE album_name = " + "'" + album + "'");
 			ResultSet rs3 = s3.getResultSet();
 			int albID = 0;
-			if(!(rs3.next())) {
-				albID = rs3.getInt(1);	
+			rs3.first();
+			if(rs3.first()) {
+				albID = rs3.getInt(1);
 			}
 			else {
-				System.out.println("returning false");
 				return false;
 			}
 			String query = " insert into Collaborative_Credit (artist_id, album_id)" + " values(?, ?)";
