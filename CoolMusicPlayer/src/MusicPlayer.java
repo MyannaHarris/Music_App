@@ -98,7 +98,7 @@ public class MusicPlayer {
     
     public int getLength() {
     	if (clip!=null) {
-    		return (int) clip.getMicrosecondLength();
+    		return (int) (clip.getMicrosecondLength()*1000000);
     	}
     	return -1;
     }
