@@ -384,6 +384,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 				SwingUtilities.invokeLater(new Runnable() {
 					public void run() {
 						
+						music.playQueue();
 						if(queuePanels.size()>0)
 						{
 							Song s = music.getQueueSong(0);
@@ -395,7 +396,6 @@ public class CoolMusicPlayerGUI extends JFrame {
 					        repaint();
 					        panelQueue.updateUI();
 						}
-						music.playQueue();
 						
 						if(!playingListener)
 						{
