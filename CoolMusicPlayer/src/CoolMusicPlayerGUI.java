@@ -761,6 +761,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 		{  
 		    public void mouseClicked(MouseEvent e)  
 		    {
+		    	
 		    	int i = 0;
 		    	for(int k=0; k<playlistPanels.size(); k++)
 		    	{
@@ -771,6 +772,13 @@ public class CoolMusicPlayerGUI extends JFrame {
 		    			break;
 		    		}
 		    	}
+		    	
+		    	Component[] listC2 = subSongPanels.get(i).getComponents();
+		    	if(openSub && listC2.length > 0)
+		    	{
+		    		openSub = false;
+		    	}
+		    	
 		    	panelPlaylists.remove(playlistPanels.get(i));
 		    	playlistPanels.remove(i);
 		    	panelPlaylists.remove(subSongPanels.get(i));
@@ -1448,7 +1456,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 								
 								playlistPanels.add(createPlaylistPanel(tempPlaylist));
 								panelPlaylists.add(playlistPanels.get(playlistPanels.size()-1),gbc2,-1);
-								subSongPanels.add(new JPanel());
+								subSongPanels.add(new JPanel(new GridBagLayout()));
 								panelPlaylists.add(subSongPanels.get(subSongPanels.size()-1),gbc2,-1);
 							
 								panelPlaylists.add(new JPanel(),gbc3,-1);
