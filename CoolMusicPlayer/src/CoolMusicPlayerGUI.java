@@ -387,13 +387,15 @@ public class CoolMusicPlayerGUI extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				SwingUtilities.invokeLater(new Runnable() {
 					public void run() {
-						
+						Song s = music.getQueueSong(0);
 						music.playQueue();
 						if(queuePanels.size()>0)
 						{
-							Song s = music.getQueueSong(0);
-							int sID = s.getID();
-							updatePlay(sID);
+							if (s != null)
+							{
+								int sID = s.getID();
+								updatePlay(sID);
+							}
 							panelQueue.remove(queuePanels.get(0));
 					    	queuePanels.remove(0);
 					    	validate();
