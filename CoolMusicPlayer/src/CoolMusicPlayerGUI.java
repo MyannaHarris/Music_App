@@ -81,6 +81,8 @@ public class CoolMusicPlayerGUI extends JFrame {
 	Song currSong;
 	JLabel songInfoLabel;
 	JLabel timeLabel;
+	//boolean to check if pause is stopping song
+	boolean pausedBool;
 	
 	/** Constructor
 	  * @pre called
@@ -282,6 +284,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 	    songButtonsPanel.add(playButton);
 	    songButtonsPanel.add(pauseButton);
 	    songButtonsPanel.add(skipButton);
+	    pausedBool = false;
 	    
 	    //Add song button
 	    JPanel addSongButtonPanel = new JPanel();
@@ -353,6 +356,7 @@ public class CoolMusicPlayerGUI extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				SwingUtilities.invokeLater(new Runnable() {
 					public void run() {
+						pausedBool = true;
 						music.pauseButton();
 					}
 				});
@@ -976,20 +980,32 @@ public class CoolMusicPlayerGUI extends JFrame {
 				public void update(LineEvent event) {
 					LineEvent.Type type = event.getType();
 				    if (type == LineEvent.Type.STOP) {
-				    	System.out.println("1");
-				    	Song s = music.getQueueSong(0);
-						if (s != null)
+				    	if(!pausedBool)
+				    	{
+					    	System.out.println("1");
+					    	Song s = music.getQueueSong(0);
+							if (s != null)
+							{
+								int sID = s.getID();
+								updatePlay(sID);
+								panelQueue.remove(queuePanels.get(0));
+						    	queuePanels.remove(0);
+						    	validate();
+						        repaint();
+						        panelQueue.updateUI();
+						        
+						        music.skip();
+								setQueueListener();
+							}
+							else
+							{
+								music.stop();
+							}
+				    	}
+						else
 						{
-							int sID = s.getID();
-							updatePlay(sID);
-							panelQueue.remove(queuePanels.get(0));
-					    	queuePanels.remove(0);
-					    	validate();
-					        repaint();
-					        panelQueue.updateUI();
+							pausedBool = false;
 						}
-						music.skip();
-						setQueueListener();
 				    }
 				}
 	        });
